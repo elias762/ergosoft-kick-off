@@ -1,894 +1,1344 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ergosoft x Asuno — Knowledge Base Kick-off</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-:root {
-  --navy:#00022C; --navy-m:#0a0a3a; --blue:#0400D4; --blue-l:#2D29FF;
-  --cyan:#4FCCC4; --mag:#BF003F; --wh:#fff; --off:#f7f7fa;
-  --g50:#f4f4f8; --g100:#eaeaef; --g200:#d8d8e0; --g300:#b0b0bc;
-  --g500:#6e6e80; --g700:#3a3a4a; --g900:#1a1a2e;
-  --sb:240px;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%;overflow:hidden}
-body{font-family:'Inter',system-ui,sans-serif;color:var(--g900);background:var(--navy);font-size:13px;-webkit-font-smoothing:antialiased;display:flex;line-height:1.45}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ergosoft x Asuno – Kickoff Workshop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* SIDEBAR */
-.sb{width:var(--sb);min-width:var(--sb);height:100vh;background:var(--navy);display:flex;flex-direction:column;position:fixed;left:0;top:0;z-index:100;border-right:1px solid rgba(255,255,255,.06)}
-.sb-h{padding:24px 20px 18px;border-bottom:1px solid rgba(255,255,255,.06)}
-.sb-h h1{font-size:13px;font-weight:700;color:var(--wh);letter-spacing:.4px}
-.sb-h h1 span{color:var(--cyan)}
-.sb-h p{font-size:10px;color:rgba(255,255,255,.3);margin-top:3px}
-.sb-n{flex:1;overflow-y:auto;padding:10px 0}
-.sb-n a{display:flex;align-items:center;gap:10px;padding:7px 20px;font-size:11.5px;font-weight:400;color:rgba(255,255,255,.4);text-decoration:none;cursor:pointer;transition:all .15s;border-left:2px solid transparent}
-.sb-n a:hover{color:rgba(255,255,255,.7);background:rgba(255,255,255,.02)}
-.sb-n a.on{color:var(--cyan);font-weight:500;border-left-color:var(--cyan);background:rgba(79,204,196,.05)}
-.sb-n a .n{font-size:9px;font-weight:600;min-width:16px;opacity:.5;font-variant-numeric:tabular-nums}
-.sb-n a.on .n{opacity:1}
-.sb-f{padding:14px 20px;border-top:1px solid rgba(255,255,255,.06);font-size:9px;color:rgba(255,255,255,.18)}
-.sb-n::-webkit-scrollbar{width:2px}.sb-n::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:1px}
+        :root {
+            --nav-width: 280px;
+            --dark: #0f172a;
+            --dark-mid: #1e293b;
+            --dark-light: #334155;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --accent-glow: rgba(59, 130, 246, 0.15);
+            --red: #ef4444;
+            --green: #22c55e;
+            --amber: #f59e0b;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --text-light: #94a3b8;
+            --bg: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --border-light: #f1f5f9;
+        }
 
-/* MAIN */
-.mn{margin-left:var(--sb);flex:1;height:100vh;overflow:hidden;background:var(--wh)}
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
 
-/* SLIDE */
-.sl{display:none;height:100vh;overflow:hidden}
-.sl.on{display:grid}
+        /* ── SIDEBAR NAV ── */
+        .sidebar {
+            width: var(--nav-width);
+            background: var(--dark);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
 
-/* DARK SLIDE */
-.sl--d{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-m) 60%,#120e5c 100%);color:var(--wh);position:relative}
-.sl--d::after{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(4,0,212,.18),transparent 70%);top:-180px;right:-150px;pointer-events:none}
-.sl--d::before{content:'';position:absolute;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(79,204,196,.06),transparent 70%);bottom:-80px;left:-40px;pointer-events:none}
+        .sidebar-header {
+            padding: 28px 24px 20px;
+            border-bottom: 1px solid var(--dark-light);
+        }
 
-/* LIGHT SLIDE */
-.sl--l{background:var(--wh);color:var(--g900)}
+        .sidebar-logo {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent-light);
+            margin-bottom: 4px;
+        }
 
-/* ACCENT SLIDE */
-.sl--a{background:linear-gradient(135deg,var(--blue) 0%,#3a1ddb 50%,#6a4dff 100%);color:var(--wh);position:relative}
-.sl--a::after{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.07),transparent 70%);top:-120px;right:-80px;pointer-events:none}
+        .sidebar-title {
+            font-size: 15px;
+            font-weight: 400;
+            color: var(--text-light);
+            line-height: 1.4;
+        }
 
-/* GRAY SLIDE */
-.sl--g{background:var(--off);color:var(--g900)}
+        .sidebar-nav {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px 0;
+        }
 
-/* SLIDE LAYOUTS */
-.sl-pad{padding:40px 56px;position:relative;z-index:1;height:100%;display:flex;flex-direction:column}
-.sl-2col{grid-template-columns:1fr 1fr}
-.sl-split{display:grid;grid-template-columns:1fr 1fr;height:100%}
-.sl-split-left,.sl-split-right{padding:40px 44px;display:flex;flex-direction:column;justify-content:center;overflow-y:auto}
+        .sidebar-nav::-webkit-scrollbar { width: 3px; }
+        .sidebar-nav::-webkit-scrollbar-track { background: transparent; }
+        .sidebar-nav::-webkit-scrollbar-thumb { background: var(--dark-light); border-radius: 3px; }
 
-/* HEADER */
-.hk{font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
-.sl--d .hk,.sl--a .hk{color:var(--cyan)}
-.sl--l .hk,.sl--g .hk{color:var(--blue)}
-.ht{font-size:24px;font-weight:700;line-height:1.15;letter-spacing:-.4px;margin-bottom:6px}
-.hl{font-size:12.5px;font-weight:300;line-height:1.6;max-width:500px}
-.sl--d .hl{color:rgba(255,255,255,.5)}
-.sl--l .hl,.sl--g .hl{color:var(--g500)}
-.sl--a .hl{color:rgba(255,255,255,.6)}
-.aln{width:32px;height:2px;border-radius:1px;margin:10px 0 20px}
-.aln--c{background:var(--cyan)}.aln--b{background:var(--blue)}.aln--g{background:linear-gradient(90deg,var(--cyan),var(--blue))}
+        .nav-section-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            padding: 16px 24px 6px;
+        }
 
-/* TITLE SLIDE */
-.sl-title{display:none;height:100vh;background:linear-gradient(180deg,#a8c8ff 0%,#3a6fd8 40%,var(--navy) 100%);color:var(--wh);position:relative;overflow:hidden;align-items:center;justify-content:center}
-.sl-title.on{display:flex}
-.sl-title::after{content:'';position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(79,204,196,.1),transparent 70%);bottom:-250px;right:-150px;pointer-events:none}
-.sl-title::before{content:'';position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(4,0,212,.25),transparent 60%);top:-150px;left:-80px;pointer-events:none}
-.ti{position:relative;z-index:1;text-align:center;max-width:680px;margin:0 auto;padding:0 40px}
-.ti .hk{font-size:10px;letter-spacing:3px;color:var(--cyan);margin-bottom:20px}
-.ti h2{font-size:42px;font-weight:800;line-height:1.06;letter-spacing:-1.2px;margin-bottom:14px}
-.ti .hl{font-size:15px;color:rgba(255,255,255,.5);max-width:480px;margin-bottom:44px;margin-left:auto;margin-right:auto}
-.ti-logos{display:flex;align-items:center;justify-content:center;gap:24px;margin-bottom:36px}
-.ti-logos img{height:44px;width:auto;background:none;padding:0;border-radius:0}
-.ti-logos .x{color:var(--cyan);font-size:24px;font-weight:300}
-.ti-m{display:flex;gap:40px;justify-content:center}
-.ti-mi{padding-left:16px;position:relative}
-.ti-mi::before{content:'';position:absolute;left:0;top:1px;bottom:1px;width:2px;background:linear-gradient(180deg,var(--cyan),rgba(79,204,196,.15));border-radius:1px}
-.ti-ml{font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.3);margin-bottom:1px}
-.ti-mv{font-size:13px;font-weight:600;color:var(--wh)}
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 9px 24px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border-left: 3px solid transparent;
+            text-decoration: none;
+            color: #cbd5e1;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.35;
+        }
 
-/* TABLES */
-.tb{width:100%;border-collapse:collapse;font-size:11.5px}
-.tb th{text-align:left;font-weight:600;font-size:9px;letter-spacing:.8px;text-transform:uppercase;padding:7px 10px;color:var(--g500);border-bottom:2px solid var(--g100);background:var(--g50)}
-.tb td{padding:7px 10px;border-bottom:1px solid var(--g100);color:var(--g700);vertical-align:top;line-height:1.45}
-.tb tr:last-child td{border-bottom:none}
-.tb td:first-child{font-weight:500;color:var(--g900);white-space:nowrap}
-.tb--dk th{color:var(--cyan);border-bottom-color:rgba(255,255,255,.08);background:rgba(255,255,255,.02)}
-.tb--dk td{color:rgba(255,255,255,.55);border-bottom-color:rgba(255,255,255,.04)}
-.tb--dk td:first-child{color:var(--wh)}
-.tb--compact td,.tb--compact th{padding:5px 8px}
+        .nav-item:hover {
+            background: rgba(255,255,255,0.04);
+            color: #fff;
+        }
 
-/* BADGES */
-.bd{display:inline-block;font-size:8px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:2px 6px;border-radius:2px}
-.bd--m{background:rgba(79,204,196,.12);color:#2ba89e}
-.bd--2{background:rgba(4,0,212,.08);color:var(--blue)}
-.bd--3{background:rgba(191,0,63,.08);color:var(--mag)}
+        .nav-item.active {
+            background: rgba(59, 130, 246, 0.1);
+            border-left-color: var(--accent);
+            color: #fff;
+            font-weight: 500;
+        }
 
-/* CARDS */
-.cg{display:grid;gap:12px}
-.c3{grid-template-columns:repeat(3,1fr)}.c2{grid-template-columns:repeat(2,1fr)}
+        .nav-num {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            background: var(--dark-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            flex-shrink: 0;
+            transition: all 0.15s ease;
+        }
 
-.cd{padding:16px;border-radius:8px}
-.cd h3{font-size:12px;font-weight:600;margin-bottom:4px;line-height:1.25}
-.cd p{font-size:11px;line-height:1.5}
+        .nav-item.active .nav-num {
+            background: var(--accent);
+            color: #fff;
+        }
 
-.cd--gl{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07)}
-.cd--gl h3{color:var(--wh)}.cd--gl p{color:rgba(255,255,255,.4)}
-.cd--gl .cn{color:var(--cyan);font-size:9px;font-weight:700;letter-spacing:.8px;margin-bottom:8px;display:block}
+        .sidebar-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--dark-light);
+            font-size: 11px;
+            color: var(--text-light);
+        }
 
-.cd--lt{background:var(--wh);border:1px solid var(--g100)}
-.cd--lt h3{color:var(--g900)}.cd--lt p{color:var(--g500)}
-.cd--lt .cn{color:var(--blue);font-size:9px;font-weight:700;letter-spacing:.8px;margin-bottom:8px;display:block}
+        /* ── MAIN CONTENT ── */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
 
-.cd--ac{background:linear-gradient(135deg,rgba(79,204,196,.06),rgba(4,0,212,.04));border:1px solid rgba(79,204,196,.12)}
-.cd--ac h3{color:var(--g900)}.cd--ac p{color:var(--g500)}
+        .topbar {
+            height: 52px;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 36px;
+            flex-shrink: 0;
+        }
 
-/* PIPELINE */
-.pip{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;border-radius:8px;overflow:hidden;background:rgba(255,255,255,.06)}
-.pip-s{padding:14px 8px;background:rgba(255,255,255,.02);text-align:center;position:relative}
-.pip-s::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--blue));opacity:.35}
-.pip-n{font-size:18px;font-weight:800;color:var(--cyan);opacity:.5;margin-bottom:4px}
-.pip-s h4{font-size:9.5px;font-weight:600;color:var(--wh);margin-bottom:2px}
-.pip-s p{font-size:8.5px;color:rgba(255,255,255,.35);line-height:1.3}
+        .topbar-left {
+            font-size: 12px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
 
-/* ROADMAP */
-.rm{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.rp{padding:18px;border-radius:8px;border:1px solid var(--g100);background:var(--wh);position:relative;overflow:hidden}
-.rp::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.rp--m::before{background:linear-gradient(90deg,var(--cyan),#38b2ac)}
-.rp--2::before{background:linear-gradient(90deg,var(--blue),var(--blue-l))}
-.rp--3::before{background:linear-gradient(90deg,#6C63FF,var(--mag))}
-.rp h3{font-size:14px;font-weight:700;margin-bottom:2px}
-.rp--m h3{color:#2ba89e}.rp--2 h3{color:var(--blue)}.rp--3 h3{color:var(--mag)}
-.rp .rs{font-size:10px;color:var(--g500);margin-bottom:10px}
-.rp ul{list-style:none}.rp li{font-size:11px;color:var(--g700);padding:3px 0 3px 14px;position:relative;line-height:1.4}
-.rp li::before{content:'';position:absolute;left:0;top:9px;width:4px;height:4px;border-radius:50%}
-.rp--m li::before{background:var(--cyan)}.rp--2 li::before{background:var(--blue)}.rp--3 li::before{background:var(--mag)}
+        .topbar-nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-/* QUESTION LIST */
-.ql{list-style:none}.ql li{padding:12px 16px;margin-bottom:6px;border-radius:6px;border-left:3px solid var(--blue);background:var(--g50);font-size:12px;color:var(--g700);line-height:1.5}
-.ql li strong{color:var(--g900);font-weight:600}
+        .topbar-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s ease;
+            color: var(--text-secondary);
+        }
 
-/* INGESTION */
-.ig{padding:12px 14px;border:1px solid var(--g100);border-radius:6px;margin-bottom:8px;border-left:3px solid var(--cyan)}
-.ig h4{font-size:11.5px;font-weight:600;color:var(--g900);margin-bottom:2px}
-.ig p{font-size:10.5px;color:var(--g500);line-height:1.45}
+        .topbar-btn:hover {
+            background: var(--bg);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
 
-/* CATEGORY */
-.cg-t h4{font-size:11.5px;font-weight:600;color:var(--g900);margin-bottom:2px}
-.cg-t ul{list-style:none;padding-left:12px;margin-bottom:10px}
-.cg-t li{font-size:10px;color:var(--g500);padding:1px 0 1px 10px;position:relative}
-.cg-t li::before{content:'';position:absolute;left:0;top:7px;width:5px;height:1px;background:var(--g300)}
+        .topbar-btn svg { width: 16px; height: 16px; }
 
-/* NS CARDS (on dark) */
-.ns{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.nc{padding:20px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07)}
-.nc h3{font-size:13px;font-weight:600;color:var(--wh);margin-bottom:5px}
-.nc p{font-size:11px;color:rgba(255,255,255,.4);line-height:1.5}
+        .slide-counter {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+            min-width: 50px;
+            text-align: center;
+        }
 
-/* FOOTER */
-.sl-ft{margin-top:auto;padding-top:8px;display:flex;justify-content:space-between;font-size:9px;opacity:.3}
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 40px 48px 60px;
+        }
 
-/* DEMO */
-@keyframes dotPulse{0%,100%{opacity:.3}50%{opacity:1}}
-@keyframes typeIn{from{width:0}to{width:100%}}
-.demo-ind{flex:1;height:3px;border-radius:2px;background:var(--g100);transition:background .3s}
-.demo-ind.on{background:var(--blue)}
-.demo-us{display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:5px;font-size:10px;color:var(--g400);transition:all .4s;border:1px solid transparent}
-.demo-us.on{background:rgba(4,0,212,.05);border-color:rgba(4,0,212,.12);color:var(--g900);font-weight:600}
-.demo-badge{font-size:7px;font-weight:700;color:#fff;padding:2px 5px;border-radius:3px;min-width:32px;text-align:center}
-.demo-msg{opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s}
-.demo-msg.on{opacity:1;transform:translateY(0)}
-.demo-tag{z-index:2;box-shadow:0 1px 4px rgba(0,0,0,.15);letter-spacing:.3px}
+        .content-area::-webkit-scrollbar { width: 6px; }
+        .content-area::-webkit-scrollbar-track { background: transparent; }
+        .content-area::-webkit-scrollbar-thumb { background: var(--border); border-radius: 6px; }
 
-/* flex helpers */
-.fg1{flex:1;overflow-y:auto;min-height:0}
-.mt-a{margin-top:auto}
-</style>
+        /* ── SLIDES ── */
+        .slide { display: none; max-width: 960px; animation: fadeIn 0.25s ease; }
+        .slide.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── TITLE SLIDE ── */
+        .slide-title-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 180px);
+            text-align: center;
+        }
+
+        .title-badge {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: var(--accent-glow);
+            padding: 6px 16px;
+            border-radius: 100px;
+            margin-bottom: 32px;
+        }
+
+        .title-main {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--dark);
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 12px;
+        }
+
+        .title-sub {
+            font-size: 22px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .title-label {
+            font-size: 16px;
+            color: var(--text-light);
+            font-weight: 300;
+        }
+
+        .title-divider {
+            width: 48px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 3px;
+            margin: 28px 0;
+        }
+
+        .title-date {
+            font-size: 14px;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        /* ── SLIDE HEADER ── */
+        .slide-header {
+            margin-bottom: 28px;
+        }
+
+        .slide-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .slide-h {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark);
+            letter-spacing: -0.02em;
+            line-height: 1.25;
+        }
+
+        .slide-lead {
+            margin-top: 12px;
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            padding-left: 16px;
+            border-left: 3px solid var(--accent);
+            font-weight: 400;
+        }
+
+        /* ── BULLET LIST ── */
+        .bullets {
+            list-style: none;
+            margin-top: 24px;
+        }
+
+        .bullets > li {
+            display: flex;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 14.5px;
+            line-height: 1.6;
+            color: #475569;
+        }
+
+        .bullets > li:last-child { border-bottom: none; }
+
+        .bullet-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 2px;
+            background: var(--accent);
+            flex-shrink: 0;
+            margin-top: 7px;
+        }
+
+        .bullets strong {
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        /* ── TABLES ── */
+        .table-wrap {
+            margin-top: 24px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--white);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13.5px;
+        }
+
+        thead {
+            background: var(--dark);
+            color: #fff;
+        }
+
+        th {
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-light);
+            vertical-align: top;
+            color: #475569;
+            line-height: 1.5;
+        }
+
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) { background: #f8fafc; }
+
+        td strong { color: var(--dark); font-weight: 600; }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            white-space: nowrap;
+        }
+
+        .badge-mvp { background: #dcfce7; color: #166534; }
+        .badge-v2  { background: #dbeafe; color: #1e40af; }
+        .badge-v3  { background: #fef3c7; color: #92400e; }
+
+        /* ── MODULE ROWS ── */
+        .module-list { margin-top: 24px; }
+
+        .module-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 20px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            transition: border-color 0.15s;
+        }
+
+        .module-card:hover { border-color: var(--accent); }
+
+        .module-num {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--dark);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .module-body { flex: 1; }
+
+        .module-name {
+            font-size: 14.5px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 2px;
+        }
+
+        .module-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .module-stories {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+            margin-left: auto;
+            padding-left: 12px;
+        }
+
+        .module-stories .story-ids {
+            font-size: 12px;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        /* ── TECH CARDS ── */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .tech-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.15s;
+        }
+
+        .tech-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 4px 12px rgba(59,130,246,0.08);
+        }
+
+        .tech-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-light);
+            margin-bottom: 6px;
+        }
+
+        .tech-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 6px;
+        }
+
+        .tech-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ── PIPELINE ── */
+        .pipeline { margin-top: 24px; }
+
+        .pipe-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            position: relative;
+        }
+
+        .pipe-line {
+            position: absolute;
+            left: 19px;
+            top: 40px;
+            bottom: -12px;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .pipe-step:last-child .pipe-line { display: none; }
+
+        .pipe-num {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--dark);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 14px;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pipe-content {
+            padding: 6px 0 24px;
+            flex: 1;
+        }
+
+        .pipe-title {
+            font-size: 14.5px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .pipe-title span {
+            font-weight: 400;
+            color: var(--text-light);
+            font-size: 13px;
+            margin-left: 6px;
+        }
+
+        .pipe-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 3px;
+            line-height: 1.5;
+        }
+
+        /* ── DECISION CARDS ── */
+        .decisions { margin-top: 24px; }
+
+        .decision {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            border-radius: 0 10px 10px 0;
+            padding: 20px 24px;
+            margin-bottom: 12px;
+        }
+
+        .decision h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 6px;
+        }
+
+        .decision p {
+            font-size: 13.5px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ── CATEGORY GRID ── */
+        .cat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .cat-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px 20px;
+            transition: border-color 0.15s;
+        }
+
+        .cat-card:hover { border-color: var(--accent); }
+
+        .cat-name {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+
+        .cat-items {
+            font-size: 12.5px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ── BUILD ORDER ── */
+        .build-section {
+            margin-top: 20px;
+        }
+
+        .build-phase {
+            margin-bottom: 20px;
+        }
+
+        .phase-tag {
+            display: inline-block;
+            padding: 5px 14px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .phase-mvp { background: var(--green); }
+        .phase-v2  { background: var(--accent); }
+        .phase-v3  { background: var(--amber); }
+
+        .build-items {
+            list-style: none;
+        }
+
+        .build-items li {
+            font-size: 14px;
+            color: #475569;
+            padding: 6px 0 6px 20px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .build-items li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 13px;
+            width: 8px;
+            height: 2px;
+            background: var(--text-light);
+            border-radius: 2px;
+        }
+
+        .build-items li strong { color: var(--dark); }
+
+        /* ── QUESTIONS ── */
+        .questions-list { margin-top: 24px; }
+
+        .q-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px 20px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            align-items: flex-start;
+        }
+
+        .q-num {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--red);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        .q-body { flex: 1; }
+
+        .q-title {
+            font-size: 14.5px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 2px;
+        }
+
+        .q-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ── LEGEND ── */
+        .legend-cards {
+            display: flex;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .legend-card {
+            flex: 1;
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .legend-card.mvp  { background: #dcfce7; border: 2px solid #86efac; }
+        .legend-card.v2   { background: #dbeafe; border: 2px solid #93c5fd; }
+        .legend-card.v3   { background: #fef3c7; border: 2px solid #fcd34d; }
+
+        .legend-label {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .legend-card.mvp .legend-label { color: #166534; }
+        .legend-card.v2 .legend-label  { color: #1e40af; }
+        .legend-card.v3 .legend-label  { color: #92400e; }
+
+        .legend-desc {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #475569;
+        }
+
+        /* ── KEYBOARD HINT ── */
+        .keyboard-hint {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            justify-content: center;
+            margin-top: 48px;
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        kbd {
+            display: inline-block;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-family: inherit;
+            font-size: 11px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        /* ── CLOSING SLIDE ── */
+        .closing {
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .closing-label {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 24px;
+        }
+
+        .closing h2 {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--dark);
+            letter-spacing: -0.02em;
+        }
+
+        .closing p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-top: 12px;
+        }
+    </style>
 </head>
 <body>
 
-<aside class="sb">
-  <div class="sb-h">
-    <h1>ergosoft <span>&times;</span> asuno</h1>
-    <p>Knowledge Base / Kick-off</p>
-  </div>
-  <nav class="sb-n">
-    <a data-p="title" class="on"><span class="n">01</span>Übersicht</a>
-    <a data-p="agenda"><span class="n">02</span>Agenda</a>
-    <a data-p="problem"><span class="n">03</span>Ausgangslage</a>
-    <a data-p="vision"><span class="n">04</span>Vision &amp; Ansatz</a>
-    <a data-p="stories"><span class="n">05</span>User Stories &amp; Module</a>
-    <a data-p="tech"><span class="n">06</span>Architektur &amp; RAG</a>
-    <a data-p="content"><span class="n">07</span>Content &amp; Roadmap</a>
-    <a data-p="questions"><span class="n">08</span>Offene Fragen</a>
-  </nav>
-  <div class="sb-f">Vertraulich / Februar 2026</div>
+<!-- SIDEBAR -->
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-logo">Ergosoft x Asuno</div>
+        <div class="sidebar-title">AI-gestutzte Knowledge Base<br>Kickoff Workshop</div>
+    </div>
+    <nav class="sidebar-nav" id="sidebarNav">
+        <div class="nav-section-label">Einfuhrung</div>
+        <a class="nav-item active" data-slide="0">
+            <div class="nav-num">01</div>
+            <span>Titelfolie</span>
+        </a>
+        <a class="nav-item" data-slide="1">
+            <div class="nav-num">02</div>
+            <span>Zielbild</span>
+        </a>
+        <a class="nav-item" data-slide="2">
+            <div class="nav-num">03</div>
+            <span>Status Quo &amp; Pain Points</span>
+        </a>
+
+        <div class="nav-section-label">Losung</div>
+        <a class="nav-item" data-slide="3">
+            <div class="nav-num">04</div>
+            <span>Losungsansatz</span>
+        </a>
+
+        <div class="nav-section-label">User Stories</div>
+        <a class="nav-item" data-slide="4">
+            <div class="nav-num">05</div>
+            <span>MVP Stories (US-1 – US-5)</span>
+        </a>
+        <a class="nav-item" data-slide="5">
+            <div class="nav-num">06</div>
+            <span>MVP Stories (US-6 – US-9)</span>
+        </a>
+        <a class="nav-item" data-slide="6">
+            <div class="nav-num">07</div>
+            <span>Stories nach Modulen</span>
+        </a>
+
+        <div class="nav-section-label">Roadmap</div>
+        <a class="nav-item" data-slide="7">
+            <div class="nav-num">08</div>
+            <span>Roadmap V2</span>
+        </a>
+        <a class="nav-item" data-slide="8">
+            <div class="nav-num">09</div>
+            <span>Roadmap V3</span>
+        </a>
+
+        <div class="nav-section-label">Architektur</div>
+        <a class="nav-item" data-slide="9">
+            <div class="nav-num">10</div>
+            <span>Tech-Stack</span>
+        </a>
+        <a class="nav-item" data-slide="10">
+            <div class="nav-num">11</div>
+            <span>RAG-Pipeline</span>
+        </a>
+        <a class="nav-item" data-slide="11">
+            <div class="nav-num">12</div>
+            <span>Architektur-Entscheidungen</span>
+        </a>
+
+        <div class="nav-section-label">Content &amp; Struktur</div>
+        <a class="nav-item" data-slide="12">
+            <div class="nav-num">13</div>
+            <span>Content-Strategie</span>
+        </a>
+        <a class="nav-item" data-slide="13">
+            <div class="nav-num">14</div>
+            <span>Kategoriestruktur</span>
+        </a>
+
+        <div class="nav-section-label">Umsetzung</div>
+        <a class="nav-item" data-slide="14">
+            <div class="nav-num">15</div>
+            <span>Build Order</span>
+        </a>
+        <a class="nav-item" data-slide="15">
+            <div class="nav-num">16</div>
+            <span>Offene Fragen</span>
+        </a>
+        <a class="nav-item" data-slide="16">
+            <div class="nav-num">17</div>
+            <span>Priorisierung</span>
+        </a>
+    </nav>
+    <div class="sidebar-footer">Februar 2026</div>
 </aside>
 
-<main class="mn">
-
-<!-- 01 TITLE -->
-<div class="sl-title on" data-id="title">
-  <div class="ti">
-    <div class="ti-logos">
-      <img src="logo-ergosoft.png" alt="Ergosoft">
-      <span class="x">&times;</span>
-      <img src="logo-asuno.png" alt="Asuno">
+<!-- MAIN -->
+<div class="main">
+    <div class="topbar">
+        <div class="topbar-left" id="sectionLabel">Einfuhrung</div>
+        <div class="topbar-nav">
+            <button class="topbar-btn" onclick="prevSlide()" title="Zuruck">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <div class="slide-counter"><span id="currentNum">1</span> / <span id="totalNum">17</span></div>
+            <button class="topbar-btn" onclick="nextSlide()" title="Weiter">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+        </div>
     </div>
-    <p class="hk">Kick-off Workshop / 19. Februar 2026</p>
-    <h2>AI-Powered<br>Knowledge Base</h2>
-    <p class="hl">Von verteiltem Wissen zu einer zentralen, intelligenten Plattform &mdash; mit semantischer Suche und KI-gestützten Antworten.</p>
-  </div>
-</div>
 
-<!-- 02 AGENDA -->
-<div class="sl sl--d" data-id="agenda">
-  <div class="sl-pad">
-    <p class="hk">Agenda</p>
-    <h2 class="ht">Was wir heute besprechen</h2>
-    <div class="aln aln--c"></div>
-    <div class="cg c2 fg1" style="align-content:center;gap:16px">
-      <div class="cd cd--gl"><span class="cn">01</span><h3>Ausgangslage</h3></div>
-      <div class="cd cd--gl"><span class="cn">02</span><h3>Vision &amp; Ansatz</h3></div>
-      <div class="cd cd--gl"><span class="cn">03</span><h3>User Stories &amp; Module</h3></div>
-      <div class="cd cd--gl"><span class="cn">04</span><h3>Architektur &amp; RAG</h3></div>
-      <div class="cd cd--gl"><span class="cn">05</span><h3>Content &amp; Roadmap</h3></div>
-      <div class="cd cd--gl"><span class="cn">06</span><h3>Offene Fragen</h3></div>
-    </div>
-    <div class="sl-ft"><span>Vertraulich</span><span>Ergosoft x Asuno / Februar 2026</span></div>
-  </div>
-</div>
+    <div class="content-area" id="contentArea">
 
-<!-- 03a AUSGANGSLAGE – Double Diamond -->
-<div class="sl sl--l" data-id="problem">
-  <div class="sl-pad" style="align-items:center;justify-content:center">
-    <p class="hk">Ausgangslage</p>
-    <h2 class="ht">Unser Vorgehen</h2>
-    <p class="hl">Wir befinden uns in der Research-Phase: Das Problem verstehen, bevor wir Lösungen bauen.</p>
-    <div class="aln aln--g"></div>
-    <div style="background:var(--g50);border-radius:8px;padding:24px 32px;border:1px solid var(--g100);text-align:center;width:100%">
-      <img src="double-diamond.webp" alt="Double Diamond" style="width:100%;max-width:700px;height:auto;display:inline-block">
-    </div>
-  </div>
-</div>
-
-<!-- 03b AUSGANGSLAGE – 6 Problemfelder -->
-<div class="sl sl--l" data-id="problems">
-  <div class="sl-pad">
-    <p class="hk">Ausgangslage</p>
-    <h2 class="ht">6 identifizierte Problemfelder</h2>
-    <p class="hl">Erkenntnisse aus den Mitarbeiter-Interviews:</p>
-    <div class="aln aln--g"></div>
-    <div class="cg c3 fg1" style="align-content:start">
-      <div class="cd cd--lt"><span class="cn">01</span><h3>Information verstreut</h3><p>Mitarbeiter suchen parallel in Loop, Z:-Laufwerk, E-Mails und bei Kollegen. Kein zentraler Einstiegspunkt.</p></div>
-      <div class="cd cd--lt"><span class="cn">02</span><h3>Personenabhängigkeit</h3><p>Kritisches Wissen in einzelnen Köpfen. &bdquo;Frag Eric oder Alex&ldquo; als wiederkehrendes Muster.</p></div>
-      <div class="cd cd--lt"><span class="cn">03</span><h3>Vertrauen fehlt</h3><p>Z:-Laufwerk enthält veraltete Informationen. Keine Möglichkeit, Aktualität einzuschätzen.</p></div>
-      <div class="cd cd--lt"><span class="cn">04</span><h3>Dokumentation als Bürde</h3><p>Hoher Aufwand beim Erstellen und Pflegen. Genannte Reibungspunkte: Albert, Eric, Alexandra.</p></div>
-      <div class="cd cd--lt"><span class="cn">05</span><h3>Kein Feedback-Loop</h3><p>&bdquo;Ich weiss nicht, ob meine Docs gefunden und genutzt werden.&ldquo; Keine Analytics.</p></div>
-      <div class="cd cd--lt"><span class="cn">06</span><h3>Änderungen unsichtbar</h3><p>&bdquo;Ich erfahre es erst, wenn etwas nicht mehr funktioniert.&ldquo; Keine Benachrichtigungen.</p></div>
-    </div>
-    <div class="sl-ft"><span>Vertraulich</span><span>03 / Ausgangslage</span></div>
-  </div>
-</div>
-
-<!-- 04 VISION -->
-<div class="sl sl--d" data-id="vision">
-  <div class="sl-pad">
-    <p class="hk">Vision &amp; Ansatz</p>
-    <h2 class="ht">Lösungsansatz: Intelligente Knowledge Base</h2>
-    <p class="hl">Wissen existiert bereits, es muss <strong style="color:var(--cyan)">gefunden</strong>, <strong style="color:var(--cyan)">verstanden</strong> und <strong style="color:var(--cyan)">vertraut</strong> werden.</p>
-    <div class="aln aln--c"></div>
-    <div class="cg c3 fg1" style="align-content:center;gap:18px">
-      <div class="cd cd--gl" style="padding:24px 22px;border-left:3px solid var(--cyan)">
-        <h3 style="margin-bottom:10px;font-size:14px">Zentrale Suche</h3>
-        <ul style="list-style:disc;margin:0;padding-left:18px">
-          <li style="padding:3px 0;color:rgba(255,255,255,.5)"><strong style="color:var(--wh)">Ein Einstiegspunkt</strong> für alle Inhalte</li>
-          <li style="padding:3px 0;color:rgba(255,255,255,.5)">Loop, Z:-Laufwerk, interne Artikel</li>
-          <li style="padding:3px 0;color:rgba(255,255,255,.5)">Suche mit <strong style="color:var(--wh)">eigenen Worten</strong> oder Stichwörtern</li>
-        </ul>
-      </div>
-      <div class="cd cd--gl" style="padding:24px 22px;border-left:3px solid var(--blue-l)">
-        <h3 style="margin-bottom:10px;font-size:14px">KI-gestützte Antworten</h3>
-        <ul style="list-style:disc;margin:0;padding-left:18px">
-          <li style="padding:3px 0;color:rgba(255,255,255,.5)"><strong style="color:var(--wh)">Direkte Antwort</strong> statt Dokumente lesen</li>
-          <li style="padding:3px 0;color:rgba(255,255,255,.5)">Immer mit <strong style="color:var(--wh)">Quellenangabe</strong></li>
-          <li style="padding:3px 0;color:rgba(255,255,255,.5)"><strong style="color:var(--wh)">Keine Eskalation</strong> bei Standardfragen</li>
-        </ul>
-      </div>
-      <div class="cd cd--gl" style="padding:24px 22px;border-left:3px solid #6C63FF">
-        <h3 style="margin-bottom:10px;font-size:14px">Vertrauenswürdige Inhalte</h3>
-        <ul style="list-style:disc;margin:0;padding-left:18px">
-          <li style="padding:3px 0;color:rgba(255,255,255,.5)"><strong style="color:var(--wh)">Letztes Update</strong> und Autor sichtbar</li>
-          <li style="padding:3px 0;color:rgba(255,255,255,.5)">Veraltetes kann <strong style="color:var(--wh)">markiert</strong> werden</li>
-          <li style="padding:3px 0;color:rgba(255,255,255,.5)"><strong style="color:var(--wh)">Vertrauen</strong> in die Wissensbasis</li>
-        </ul>
-      </div>
-    </div>
-    <div class="sl-ft"><span>Vertraulich</span><span>04 / Vision</span></div>
-  </div>
-</div>
-
-<!-- 05 MVP USER STORIES -->
-<div class="sl sl--l" data-id="stories">
-  <div class="sl-pad">
-    <p class="hk">MVP / V1</p>
-    <h2 class="ht">Anforderungen an das MVP</h2>
-    <p class="hl">7 User Stories, gruppiert in drei Kernbereiche</p>
-    <div class="aln aln--g"></div>
-    <div class="cg c3 fg1" style="align-content:start;gap:16px">
-      <div style="padding:24px;background:var(--wh);border:1px solid var(--g100);border-radius:8px;border-top:3px solid var(--blue)">
-        <p style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);margin-bottom:14px">Suchen &amp; Finden</p>
-        <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--g100)">
-          <p style="font-size:8px;font-weight:700;color:var(--blue);letter-spacing:.5px;margin-bottom:4px">US-1</p>
-          <p style="font-size:12px;color:var(--g700);line-height:1.55"><strong>Eine zentrale Suche</strong> über alle Quellen, per Stichwort oder natürlicher Sprache. Schluss mit dem parallelen Suchen in Loop, Z:-Laufwerk und E-Mails.</p>
-        </div>
-        <div>
-          <p style="font-size:8px;font-weight:700;color:var(--blue);letter-spacing:.5px;margin-bottom:4px">US-2</p>
-          <p style="font-size:12px;color:var(--g700);line-height:1.55"><strong>Sofortige KI-Antworten</strong> auf Fehlermeldungen und häufige Probleme, direkt im Kundengespräch, ohne Eskalation an Kollegen.</p>
-        </div>
-      </div>
-      <div style="padding:24px;background:var(--wh);border:1px solid var(--g100);border-radius:8px;border-top:3px solid var(--cyan)">
-        <p style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#2ba89e;margin-bottom:14px">Erstellen &amp; Strukturieren</p>
-        <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--g100)">
-          <p style="font-size:8px;font-weight:700;color:#2ba89e;letter-spacing:.5px;margin-bottom:4px">US-3</p>
-          <p style="font-size:12px;color:var(--g700);line-height:1.55">Artikel <strong>schnell erstellen und aktualisieren</strong> mit Markdown, Tags und Kategorien. Dokumentation soll sich nicht wie eine Bürde anfühlen.</p>
-        </div>
-        <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--g100)">
-          <p style="font-size:8px;font-weight:700;color:#2ba89e;letter-spacing:.5px;margin-bottom:4px">US-6</p>
-          <p style="font-size:12px;color:var(--g700);line-height:1.55"><strong>FAQ-Bereich</strong> für wiederkehrende Fragen wie Arbeitszeiten, Urlaub oder Kündigungsfristen.</p>
-        </div>
-        <div>
-          <p style="font-size:8px;font-weight:700;color:#2ba89e;letter-spacing:.5px;margin-bottom:4px">US-7</p>
-          <p style="font-size:12px;color:var(--g700);line-height:1.55">Inhalte von Beginn an <strong>klar strukturieren</strong> nach Abteilung, Kategorie und Tags.</p>
-        </div>
-      </div>
-      <div style="padding:24px;background:var(--wh);border:1px solid var(--g100);border-radius:8px;border-top:3px solid var(--mag)">
-        <p style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--mag);margin-bottom:14px">Vertrauen &amp; Qualität</p>
-        <div style="margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--g100)">
-          <p style="font-size:8px;font-weight:700;color:var(--mag);letter-spacing:.5px;margin-bottom:4px">US-4</p>
-          <p style="font-size:12px;color:var(--g700);line-height:1.55">Artikel als <strong>veraltet oder fehlerhaft kennzeichnen</strong>, damit die Wissensqualität dauerhaft hoch bleibt.</p>
-        </div>
-        <div>
-          <p style="font-size:8px;font-weight:700;color:var(--mag);letter-spacing:.5px;margin-bottom:4px">US-5</p>
-          <p style="font-size:12px;color:var(--g700);line-height:1.55">Jederzeit sehen, <strong>wann</strong> ein Artikel zuletzt aktualisiert wurde und <strong>von wem</strong>, um Verlässlichkeit einschätzen zu können.</p>
-        </div>
-      </div>
-    </div>
-    <div class="sl-ft"><span>Vertraulich</span><span>05 / User Stories</span></div>
-  </div>
-</div>
-
-<!-- 05b MOCKUP -->
-<!-- 05b MOCKUP: Interactive Chat Demo -->
-<div class="sl sl--g" data-id="mockup">
-  <div class="sl-pad" style="padding:24px 40px">
-    <p class="hk">So könnte es aussehen</p>
-    <h2 class="ht" style="margin-bottom:14px">Knowledge Base — Interaktive Demo</h2>
-
-    <div style="flex:1;display:grid;grid-template-columns:1fr 220px;gap:16px;min-height:0">
-
-      <!-- Chat Interface -->
-      <div style="background:var(--wh);border-radius:10px;border:1px solid var(--g200);overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 12px rgba(0,0,0,.06)">
-
-        <!-- App Header -->
-        <div style="background:var(--navy);padding:8px 16px;display:flex;align-items:center;justify-content:space-between">
-          <div style="display:flex;align-items:center;gap:10px">
-            <div style="font-size:11px;font-weight:700;color:var(--wh)">ergosoft <span style="color:var(--cyan)">KB</span></div>
-            <div style="display:flex;gap:2px">
-              <div style="padding:3px 8px;border-radius:4px;font-size:8px;color:rgba(255,255,255,.5);background:rgba(255,255,255,.08)">Suche</div>
-              <div style="padding:3px 8px;border-radius:4px;font-size:8px;color:rgba(255,255,255,.5)">Artikel</div>
-              <div id="demo-nav-faq" style="padding:3px 8px;border-radius:4px;font-size:8px;color:rgba(255,255,255,.25);transition:all .4s">FAQ</div>
-              <div id="demo-nav-cat" style="padding:3px 8px;border-radius:4px;font-size:8px;color:rgba(255,255,255,.25);transition:all .4s">Kategorien</div>
+        <!-- 01 TITEL -->
+        <div class="slide active" data-section="Einfuhrung">
+            <div class="slide-title-page">
+                <div class="title-badge">Kickoff Workshop</div>
+                <div class="title-main">Ergosoft x Asuno</div>
+                <div class="title-sub">AI-gestutzte Knowledge Base</div>
+                <div class="title-divider"></div>
+                <div class="title-date">Februar 2026</div>
+                <div class="keyboard-hint">
+                    <span><kbd>&larr;</kbd> <kbd>&rarr;</kbd> Navigation</span>
+                </div>
             </div>
-          </div>
-          <div style="font-size:8px;color:rgba(255,255,255,.2)">Max M.</div>
         </div>
 
-        <!-- Chat Area -->
-        <div id="demo-chat" style="flex:1;padding:16px 24px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;background:linear-gradient(180deg,var(--g50) 0%,#fff 100%)">
-
-          <!-- Welcome (always visible) -->
-          <div style="text-align:center;padding:12px 0 4px">
-            <p style="font-size:13px;font-weight:600;color:var(--g700);margin-bottom:4px">Willkommen in der Knowledge Base</p>
-            <p style="font-size:10px;color:var(--g300)">Stellen Sie eine Frage oder durchsuchen Sie Artikel</p>
-          </div>
-
-          <!-- Step 1: User question -->
-          <div id="demo-s1" class="demo-msg" style="align-self:flex-end;max-width:70%;position:relative">
-            <span class="demo-tag" style="background:var(--blue);position:absolute;top:-6px;left:-44px;color:#fff;font-size:7px;font-weight:700;padding:2px 6px;border-radius:3px;white-space:nowrap">US-1</span>
-            <div style="background:var(--blue);color:var(--wh);padding:10px 14px;border-radius:14px 14px 3px 14px;font-size:11px;line-height:1.5">
-              Wie setze ich den Konnektor zurück?
+        <!-- 02 ZIELBILD -->
+        <div class="slide" data-section="Einfuhrung">
+            <div class="slide-header">
+                <div class="slide-tag">Folie 02 &mdash; Einfuhrung</div>
+                <h1 class="slide-h">Zielbild: Warum wird die Knowledge Base gebaut?</h1>
+                <div class="slide-lead">Eine zentrale, AI-gestutzte Wissensplattform fur Ergosoft &ndash; kein Wiki, kein Chatbot, sondern ein Hybrid-Ansatz.</div>
             </div>
-            <p style="font-size:7px;color:var(--g300);text-align:right;margin-top:3px">Volltextsuche</p>
-          </div>
-
-          <!-- Step 2: AI thinking + answer -->
-          <div id="demo-s2" class="demo-msg" style="align-self:flex-start;max-width:80%;position:relative">
-            <span class="demo-tag" style="background:var(--blue);position:absolute;top:-6px;right:-44px;color:#fff;font-size:7px;font-weight:700;padding:2px 6px;border-radius:3px;white-space:nowrap">US-2</span>
-            <div style="padding:12px 16px;background:var(--wh);border:1px solid var(--g100);border-radius:3px 14px 14px 14px;box-shadow:0 1px 4px rgba(0,0,0,.04)">
-              <!-- Thinking dots -->
-              <div id="demo-dots" style="display:flex;gap:4px;padding:2px 0">
-                <span style="width:6px;height:6px;border-radius:50%;background:var(--g300);animation:dotPulse .8s ease-in-out infinite"></span>
-                <span style="width:6px;height:6px;border-radius:50%;background:var(--g300);animation:dotPulse .8s ease-in-out .15s infinite"></span>
-                <span style="width:6px;height:6px;border-radius:50%;background:var(--g300);animation:dotPulse .8s ease-in-out .3s infinite"></span>
-              </div>
-              <!-- Actual answer -->
-              <div id="demo-answer" style="display:none">
-                <p style="font-size:8px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--cyan);margin-bottom:6px">KI-Antwort</p>
-                <p style="font-size:10.5px;color:var(--g700);line-height:1.6;margin-bottom:4px">Um den Konnektor zurückzusetzen:</p>
-                <p style="font-size:10.5px;color:var(--g700);line-height:1.6;padding-left:8px"><strong>1.</strong> Navigieren Sie zu <strong>Einstellungen &gt; TI &gt; Konnektor</strong></p>
-                <p style="font-size:10.5px;color:var(--g700);line-height:1.6;padding-left:8px"><strong>2.</strong> Klicken Sie auf <strong>&bdquo;Neustart&ldquo;</strong></p>
-                <p style="font-size:10.5px;color:var(--g700);line-height:1.6;padding-left:8px;margin-bottom:4px"><strong>3.</strong> Warten Sie 60 Sekunden und prüfen Sie den Status</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step 3: Sources + quality info -->
-          <div id="demo-s3" class="demo-msg" style="align-self:flex-start;max-width:80%;padding-left:6px;position:relative">
-            <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">
-              <span style="font-size:7px;font-weight:700;padding:2px 6px;border-radius:3px;background:#2ba89e;color:#fff;white-space:nowrap">US-5</span>
-              <span style="font-size:8px;padding:3px 8px;background:rgba(79,204,196,.08);border:1px solid rgba(79,204,196,.15);border-radius:4px;color:#2ba89e">Quelle: Konnektor-Handbuch</span>
-              <span style="font-size:8px;padding:3px 8px;background:rgba(79,204,196,.08);border:1px solid rgba(79,204,196,.15);border-radius:4px;color:#2ba89e">Aktualisiert: 12.02.2026</span>
-            </div>
-            <div style="display:flex;gap:6px;align-items:center;margin-top:5px">
-              <span style="font-size:7px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--mag);color:#fff;white-space:nowrap">US-4</span>
-              <span style="font-size:8px;padding:3px 8px;border:1px solid rgba(191,0,63,.15);border-radius:4px;color:var(--mag);cursor:pointer">Als veraltet melden</span>
-            </div>
-          </div>
-
-          <!-- Step 4: Follow-up FAQ suggestions -->
-          <div id="demo-s4" class="demo-msg" style="align-self:flex-start;max-width:90%;margin-top:4px">
-            <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
-              <span style="font-size:7px;font-weight:700;padding:2px 6px;border-radius:3px;background:#6C63FF;color:#fff;white-space:nowrap">US-6</span>
-              <p style="font-size:8px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--g300)">Verwandte Fragen</p>
-            </div>
-            <div style="display:flex;gap:6px;flex-wrap:wrap">
-              <span style="font-size:9px;padding:5px 10px;background:var(--wh);border:1px solid var(--g200);border-radius:16px;color:var(--g700);cursor:pointer">Was tun bei TI-Ausfall?</span>
-              <span style="font-size:9px;padding:5px 10px;background:var(--wh);border:1px solid var(--g200);border-radius:16px;color:var(--g700);cursor:pointer">ePA-Verbindung prüfen</span>
-              <span style="font-size:9px;padding:5px 10px;background:var(--wh);border:1px solid var(--g200);border-radius:16px;color:var(--g700);cursor:pointer">Konnektor Fehlercodes</span>
-            </div>
-          </div>
-
-          <!-- Step 5: Category filter hint -->
-          <div id="demo-s5" class="demo-msg" style="align-self:center;margin-top:4px">
-            <div style="display:flex;align-items:center;gap:6px;justify-content:center;margin-bottom:5px">
-              <span style="font-size:7px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--cyan);color:#fff;white-space:nowrap">US-7</span>
-              <p style="font-size:8px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--g300)">Kategorien</p>
-            </div>
-            <div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:center">
-              <span style="font-size:8px;padding:3px 8px;background:var(--wh);border:1px solid var(--g100);border-radius:4px;color:var(--g500)">IT / Infra</span>
-              <span style="font-size:8px;padding:3px 8px;background:var(--wh);border:1px solid var(--cyan);border-radius:4px;color:#2ba89e;font-weight:500">Kundenservice</span>
-              <span style="font-size:8px;padding:3px 8px;background:var(--wh);border:1px solid var(--g100);border-radius:4px;color:var(--g500)">Prozesse</span>
-              <span style="font-size:8px;padding:3px 8px;background:var(--wh);border:1px solid var(--g100);border-radius:4px;color:var(--g500)">Personal</span>
-            </div>
-          </div>
-
+            <ul class="bullets">
+                <li><div class="bullet-dot"></div><div><strong>Verstreutes Fachwissen:</strong> Umfangreiches Wissen ist aktuell uber Loop, Z:-Laufwerk und mundliche Weitergabe fragmentiert und schwer auffindbar</div></li>
+                <li><div class="bullet-dot"></div><div><strong>Zeitverlust durch Suche:</strong> Mitarbeitende verbringen ubermassig viel Zeit mit der Suche nach Informationen uber verschiedene Kanale und direkte Ruckfragen bei Kollegen</div></li>
+                <li><div class="bullet-dot"></div><div><strong>Vertrauensdefizit:</strong> Geringes Vertrauen in bestehende Dokumentation &ndash; veraltete Inhalte auf dem Z:-Laufwerk untergraben die Zuverlassigkeit</div></li>
+                <li><div class="bullet-dot"></div><div><strong>Personenabhangigkeit:</strong> Wissensabhangigkeit von Einzelpersonen (z.B. Eric, Alex) erzeugt Engpasse bei der Eskalation</div></li>
+                <li><div class="bullet-dot"></div><div><strong>Fabians Vision:</strong> &bdquo;Klare Struktur, intelligente Suche&ldquo; &ndash; die Knowledge Base als strategische Infrastruktur fur effizienteren Support, besseres Onboarding und langfristig eine kundenorientierte Wissensplattform</div></li>
+            </ul>
         </div>
 
-        <!-- Input Bar -->
-        <div style="padding:8px 16px;background:var(--wh);border-top:1px solid var(--g100);display:flex;align-items:center;gap:8px">
-          <div style="flex:1;padding:8px 12px;background:var(--g50);border:1px solid var(--g200);border-radius:8px;display:flex;align-items:center;gap:6px">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="var(--g300)" stroke-width="2"/><path d="M16 16l4 4" stroke="var(--g300)" stroke-width="2" stroke-linecap="round"/></svg>
-            <span style="font-size:10px;color:var(--g300)">Frage eingeben...</span>
-          </div>
-          <div id="demo-s6" style="opacity:0;transition:opacity .4s;display:flex;align-items:center;gap:4px">
-            <span style="font-size:7px;font-weight:700;padding:2px 6px;border-radius:3px;background:var(--blue);color:#fff;white-space:nowrap">US-3</span>
-            <span style="font-size:8px;padding:6px 10px;background:var(--blue);color:var(--wh);border-radius:6px;white-space:nowrap;font-weight:500;cursor:pointer">+ Artikel erstellen</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right Panel: Controls + US Legend -->
-      <div style="display:flex;flex-direction:column;gap:10px">
-
-        <!-- Controls -->
-        <div style="display:flex;gap:4px">
-          <button onclick="demoPlay()" style="flex:1;padding:7px;background:var(--blue);color:var(--wh);border:none;border-radius:6px;font-size:9px;font-weight:600;cursor:pointer;font-family:inherit">Abspielen</button>
-          <button onclick="demoNext()" style="flex:1;padding:7px;background:var(--g200);color:var(--g700);border:none;border-radius:6px;font-size:9px;font-weight:500;cursor:pointer;font-family:inherit">Weiter</button>
-          <button onclick="demoReset()" style="padding:7px 8px;background:var(--g100);color:var(--g500);border:none;border-radius:6px;font-size:9px;cursor:pointer;font-family:inherit">Reset</button>
+        <!-- 03 STATUS QUO -->
+        <div class="slide" data-section="Einfuhrung">
+            <div class="slide-header">
+                <div class="slide-tag">Folie 03 &mdash; Einfuhrung</div>
+                <h1 class="slide-h">Status Quo: Die sechs zentralen Pain Points</h1>
+                <div class="slide-lead">Alle Probleme wurden direkt aus Stakeholder-Interviews abgeleitet.</div>
+            </div>
+            <ul class="bullets">
+                <li><div class="bullet-dot"></div><div><strong>Verstreute Informationen:</strong> Kein zentraler Anlaufpunkt &ndash; Wissen ist uber Loop, Z:-Laufwerk und mundliche Weitergabe fragmentiert</div></li>
+                <li><div class="bullet-dot"></div><div><strong>Vertrauensprobleme:</strong> Das Z:-Laufwerk ist &bdquo;voll mit veralteten Informationen&ldquo; &ndash; Mitarbeitende wissen nicht, ob Inhalte noch aktuell und korrekt sind</div></li>
+                <li><div class="bullet-dot"></div><div><strong>Wissens-Silos:</strong> Kritisches Fachwissen liegt bei einzelnen Personen (z.B. TI-Wissen bei Eric, Support-Expertise bei Alexandra) &ndash; hoher Bus-Faktor</div></li>
+                <li><div class="bullet-dot"></div><div><strong>Eskalationsengpasse:</strong> Support-Mitarbeitende mussen bei komplexen Fragen Kollegen direkt fragen, statt selbststandig Antworten zu finden</div></li>
+                <li><div class="bullet-dot"></div><div><strong>Fehlende Transparenz:</strong> Fuhrungskrafte wissen nicht, ob ihre Dokumentation gefunden und genutzt wird (Albert: &bdquo;Ich weiss nicht, ob meine Dokumente gefunden und genutzt werden&ldquo;)</div></li>
+                <li><div class="bullet-dot"></div><div><strong>Kein strukturiertes Onboarding:</strong> Neue Mitarbeitende mussen sich Wissen selbst zusammensuchen &ndash; Fabian-Prioritat</div></li>
+            </ul>
         </div>
 
-        <!-- Step dots -->
-        <div style="display:flex;gap:3px">
-          <div id="demo-dot-1" class="demo-ind"></div>
-          <div id="demo-dot-2" class="demo-ind"></div>
-          <div id="demo-dot-3" class="demo-ind"></div>
-          <div id="demo-dot-4" class="demo-ind"></div>
-          <div id="demo-dot-5" class="demo-ind"></div>
-          <div id="demo-dot-6" class="demo-ind"></div>
+        <!-- 04 LOSUNGSANSATZ -->
+        <div class="slide" data-section="Losung">
+            <div class="slide-header">
+                <div class="slide-tag">Folie 04 &mdash; Losung</div>
+                <h1 class="slide-h">Losungsansatz: AI-gestutzte interne Knowledge Base</h1>
+                <div class="slide-lead">Kombination aus strukturierten Artikeln und semantischer Suche &ndash; kein reines Wiki, kein reiner Chatbot.</div>
+            </div>
+            <ul class="bullets">
+                <li><div class="bullet-dot"></div><div><strong>Hybrid-Ansatz:</strong> Strukturierte Wissensartikel mit Kategorien, Tags und Versionierung werden mit einer AI-gestutzten semantischen Suche (RAG-Pipeline) kombiniert</div></li>
+                <li><div class="bullet-dot"></div><div><strong>AI-Suche (Retrieval-Augmented Generation):</strong> Nutzeranfragen werden in Vektordarstellungen umgewandelt, gegen eine Vektor-Datenbank abgeglichen und mit Volltextsuche kombiniert &ndash; die AI generiert prazise Antworten mit Quellenangaben</div></li>
+                <li><div class="bullet-dot"></div><div><strong>Kein reines Wiki:</strong> Das Problem ist nicht das Fehlen von Dokumenten &ndash; Mitarbeitende haben bereits Dokumente, sie finden und vertrauen ihnen nur nicht. Die AI-Schicht ist der Differenzierungsfaktor</div></li>
+                <li><div class="bullet-dot"></div><div><strong>Kein reiner Chatbot:</strong> Die Plattform basiert auf kuratierten, strukturierten Artikeln als Grundlage &ndash; die AI durchsucht und synthetisiert diese, statt frei zu generieren</div></li>
+                <li><div class="bullet-dot"></div><div><strong>Einfacher Tech-Stack:</strong> Next.js, Supabase (Postgres + pgvector), Vercel &ndash; kompakt, wartungsarm, kosteneffizient</div></li>
+            </ul>
         </div>
 
-        <!-- US Legend -->
-        <div style="display:flex;flex-direction:column;gap:4px">
-          <p style="font-size:7px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--g500);margin-bottom:2px">User Stories im Interface</p>
-
-          <div id="demo-us1" class="demo-us">
-            <span class="demo-badge" style="background:var(--blue)">US-1</span>
-            <span>Volltextsuche</span>
-          </div>
-          <div id="demo-us2" class="demo-us">
-            <span class="demo-badge" style="background:var(--blue)">US-2</span>
-            <span>KI-Antwort</span>
-          </div>
-          <div id="demo-us5" class="demo-us">
-            <span class="demo-badge" style="background:#2ba89e">US-5</span>
-            <span>Quellen &amp; Aktualität</span>
-          </div>
-          <div id="demo-us4" class="demo-us">
-            <span class="demo-badge" style="background:var(--mag)">US-4</span>
-            <span>Veraltet melden</span>
-          </div>
-          <div id="demo-us6" class="demo-us">
-            <span class="demo-badge" style="background:#6C63FF">US-6</span>
-            <span>Häufige Fragen</span>
-          </div>
-          <div id="demo-us7" class="demo-us">
-            <span class="demo-badge" style="background:var(--cyan)">US-7</span>
-            <span>Kategorien</span>
-          </div>
-          <div id="demo-us3" class="demo-us">
-            <span class="demo-badge" style="background:var(--blue)">US-3</span>
-            <span>Artikel erstellen</span>
-          </div>
+        <!-- 05 MVP US-1 bis US-5 -->
+        <div class="slide" data-section="User Stories">
+            <div class="slide-header">
+                <div class="slide-tag">Folie 05 &mdash; User Stories</div>
+                <h1 class="slide-h">MVP: Kernfunktionalitat (US-1 bis US-5)</h1>
+                <div class="slide-lead">Die MVP-User-Stories adressieren die kritischsten Pain Points aus den Stakeholder-Interviews.</div>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th style="width:60px">#</th><th>User Story</th><th style="width:200px">Begrundung</th><th style="width:60px">Prio</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>US-1</strong></td><td>Als Support-Mitarbeitender mochte ich an einem zentralen Ort mit Stichworten oder naturlicher Sprache suchen, damit ich aufhore, in Loop, Z:-Laufwerk und bei Kollegen zu suchen</td><td>Pain Point Nr. 1 &ndash; verstreute Informationen</td><td><span class="badge badge-mvp">MVP</span></td></tr>
+                        <tr><td><strong>US-2</strong></td><td>Als Support-Mitarbeitender im Kundengesprach mochte ich sofortige, prazise Antworten auf Fehlermeldungen und haufige Probleme, damit ich ohne Eskalation losen kann</td><td>Reduziert den &bdquo;Frag Eric oder Alex&ldquo;-Engpass</td><td><span class="badge badge-mvp">MVP</span></td></tr>
+                        <tr><td><strong>US-3</strong></td><td>Als Wissenstrager mochte ich schnell Artikel erstellen/aktualisieren (mit Markdown, Tags, Kategorien), damit Dokumentation keine Last ist</td><td>Dokumentationshurden (Albert, Eric, Alexandra)</td><td><span class="badge badge-mvp">MVP</span></td></tr>
+                        <tr><td><strong>US-4</strong></td><td>Als Mitarbeitender mochte ich Artikel als veraltet oder fehlerhaft markieren konnen, damit die Wissensqualitat hoch bleibt</td><td>Z:-Laufwerk &bdquo;voll mit veralteten Infos&ldquo;</td><td><span class="badge badge-mvp">MVP</span></td></tr>
+                        <tr><td><strong>US-5</strong></td><td>Als Mitarbeitender mochte ich sehen, wann ein Artikel zuletzt aktualisiert wurde und von wem, damit ich die Zuverlassigkeit einschatzen kann</td><td>Vertrauensprobleme mit Dokumentation</td><td><span class="badge badge-mvp">MVP</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <!-- Description box -->
-        <div id="demo-desc" style="padding:8px 10px;background:var(--wh);border-radius:6px;border:1px solid var(--g100);font-size:9px;color:var(--g500);line-height:1.5;margin-top:auto">
-          Klicke <strong style="color:var(--g700)">Abspielen</strong> für die automatische Demo oder <strong style="color:var(--g700)">Weiter</strong> zum Durchklicken.
+        <!-- 06 MVP US-6 bis US-9 -->
+        <div class="slide" data-section="User Stories">
+            <div class="slide-header">
+                <div class="slide-tag">Folie 06 &mdash; User Stories</div>
+                <h1 class="slide-h">MVP: FAQ, Struktur, Alerts, Analytik (US-6 bis US-9)</h1>
+                <div class="slide-lead">Erganzende MVP-Stories decken FAQ, Struktur, Benachrichtigungen und Analytik ab.</div>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th style="width:60px">#</th><th>User Story</th><th style="width:200px">Begrundung</th><th style="width:60px">Prio</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>US-6</strong></td><td>Als HR/Management mochte ich einen FAQ-Bereich fur wiederkehrende unternehmensweite Fragen (Urlaub, Arbeitszeiten, Kundigungsbedingungen)</td><td>Ann-Sophies Pain Point Nr. 1 &ndash; Wegweiser braucht besseres Zuhause</td><td><span class="badge badge-mvp">MVP</span></td></tr>
+                        <tr><td><strong>US-7</strong></td><td>Als Administrator mochte ich Inhalte nach Abteilung, Kategorie und Tags organisieren, damit die KB von Tag eins klare Struktur hat</td><td>Fabian: &bdquo;Klare Struktur, intelligente Suche&ldquo;</td><td><span class="badge badge-mvp">MVP</span></td></tr>
+                        <tr><td><strong>US-8</strong></td><td>Als Mitarbeitender mochte ich benachrichtigt werden, wenn Artikel, die fur meine Rolle relevant sind, erstellt oder aktualisiert werden</td><td>Eric: &bdquo;Ich erfahre es erst, wenn Dinge nicht mehr funktionieren&ldquo;</td><td><span class="badge badge-mvp">MVP</span></td></tr>
+                        <tr><td><strong>US-9</strong></td><td>Als Fuhrungskraft mochte ich grundlegende Analysen sehen (Suchen ohne Ergebnis, meistgesehene Artikel, veraltete Inhalte)</td><td>Albert: &bdquo;Ich weiss nicht, ob meine Dokumente gefunden und genutzt werden&ldquo;</td><td><span class="badge badge-mvp">MVP</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-      </div>
+
+        <!-- 07 MODULE -->
+        <div class="slide" data-section="User Stories">
+            <div class="slide-header">
+                <div class="slide-tag">Folie 07 &mdash; User Stories</div>
+                <h1 class="slide-h">User Stories nach Modulen: Entwicklungslogik</h1>
+                <div class="slide-lead">Die User Stories sind nach funktionalen Modulen gruppiert &ndash; diese Zuordnung steuert Sprint-Planung und Entwicklungssequenz.</div>
+            </div>
+            <div class="module-list">
+                <div class="module-card">
+                    <div class="module-num">1</div>
+                    <div class="module-body"><div class="module-name">Wissensartikel (Core Content)</div><div class="module-desc">Das Fundament &ndash; alles andere baut darauf auf</div></div>
+                    <div class="module-stories"><span class="badge badge-mvp">MVP</span>&ensp;<span class="story-ids">US-3, 5, 7, 4</span></div>
+                </div>
+                <div class="module-card">
+                    <div class="module-num">2</div>
+                    <div class="module-body"><div class="module-name">AI-Suche &amp; Antworten</div><div class="module-desc">Der Differenzierungsfaktor &ndash; darum ist das kein normales Wiki</div></div>
+                    <div class="module-stories"><span class="badge badge-mvp">MVP</span>&ensp;<span class="story-ids">US-1, 2</span></div>
+                </div>
+                <div class="module-card">
+                    <div class="module-num">3</div>
+                    <div class="module-body"><div class="module-name">FAQ &amp; wiederkehrendes Wissen</div><div class="module-desc">Schnelle Erfolge fur hochfrequente, einfache Fragen</div></div>
+                    <div class="module-stories"><span class="badge badge-mvp">MVP</span>&ensp;<span class="story-ids">US-6</span></div>
+                </div>
+                <div class="module-card">
+                    <div class="module-num">4</div>
+                    <div class="module-body"><div class="module-name">Benachrichtigungen &amp; Anderungsmanagement</div><div class="module-desc">Lost das Problem &bdquo;Ich erfahre es erst, wenn etwas kaputtgeht&ldquo;</div></div>
+                    <div class="module-stories"><span class="badge badge-mvp">MVP</span>&ensp;<span class="story-ids">US-8</span></div>
+                </div>
+                <div class="module-card">
+                    <div class="module-num">5</div>
+                    <div class="module-body"><div class="module-name">Analytik &amp; Wissensgesundheit</div><div class="module-desc">Sichtbarkeit uber Lucken und Nutzung &ndash; treibt kontinuierliche Verbesserung</div></div>
+                    <div class="module-stories"><span class="badge badge-mvp">MVP</span>&ensp;<span class="story-ids">US-9</span></div>
+                </div>
+                <div class="module-card">
+                    <div class="module-num">6</div>
+                    <div class="module-body"><div class="module-name">Onboarding-Pfade</div><div class="module-desc">Strukturiertes Lernen fur neue Mitarbeitende &ndash; Fabian-Prioritat</div></div>
+                    <div class="module-stories"><span class="badge badge-v2">V2</span>&ensp;<span class="story-ids">US-11</span></div>
+                </div>
+                <div class="module-card">
+                    <div class="module-num">7</div>
+                    <div class="module-body"><div class="module-name">Externe Kunden-Knowledge-Base</div><div class="module-desc">Der strategische Langzeit-Plan &ndash; kundenorientiert</div></div>
+                    <div class="module-stories"><span class="badge badge-v3">V3</span>&ensp;<span class="story-ids">US-14, 15, 16</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 08 ROADMAP V2 -->
+        <div class="slide" data-section="Roadmap">
+            <div class="slide-header">
+                <div class="slide-tag">Folie 08 &mdash; Roadmap</div>
+                <h1 class="slide-h">Roadmap V2: Geplante Erweiterungen nach Go-Live</h1>
+                <div class="slide-lead">V2-Stories stellen geplante Erweiterungen nach dem initialen MVP-Release dar, priorisiert nach Stakeholder-Input und strategischem Wert.</div>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th style="width:60px">#</th><th>User Story</th><th style="width:200px">Modul</th><th style="width:60px">Prio</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>US-10</strong></td><td>Als Support-Mitarbeitender mochte ich gefuhrte Fehlerbehebungsablaufe fur TI-Probleme (Firewall, Konnektor, Routing)</td><td>FAQ &amp; wiederkehrendes Wissen</td><td><span class="badge badge-v2">V2</span></td></tr>
+                        <tr><td><strong>US-11</strong></td><td>Als neuer Mitarbeitender mochte ich einen strukturierten Onboarding-Pfad fur meine Rolle mit aufeinander aufbauenden Lernmodulen</td><td>Onboarding-Pfade (Fabian-Prioritat)</td><td><span class="badge badge-v2">V2</span></td></tr>
+                        <tr><td><strong>US-12</strong></td><td>Als Fuhrungskraft mochte ich ein &bdquo;Bus-Faktor&ldquo;-Dashboard, das zeigt, welche Wissensbereiche von einzelnen Personen abhangen</td><td>Analytik &amp; Wissensgesundheit</td><td><span class="badge badge-v2">V2</span></td></tr>
+                        <tr><td><strong>US-13</strong></td><td>Als Prozessverantwortlicher mochte ich interaktive Checklisten fur komplexe wiederkehrende Prozesse (Rechnungslauf, SEPA, Onboarding)</td><td>FAQ &amp; wiederkehrendes Wissen</td><td><span class="badge badge-v2">V2</span></td></tr>
+                        <tr><td><strong>US-17</strong></td><td>Als Management mochte ich, dass das System automatisch Artikel aus aufgenommenen Quellen vorschlagt (Loop-Seiten, Server-Dokumente)</td><td>Wissensartikel</td><td><span class="badge badge-v2">V2</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 09 ROADMAP V3 -->
+        <div class="slide" data-section="Roadmap">
+            <div class="slide-header">
+                <div class="slide-tag">Folie 09 &mdash; Roadmap</div>
+                <h1 class="slide-h">Roadmap V3: Strategischer Langzeit-Plan</h1>
+                <div class="slide-lead">V3 ist der strategische, kundenorientierte Ausbau &ndash; Fabians langfristige Vision.</div>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th style="width:60px">#</th><th>User Story</th><th style="width:60px">Prio</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>US-14</strong></td><td>Als Kunde mochte ich eine externe Wissensplattform / ein digitales Handbuch, um selbststandig Fragen zur psychodat-Nutzung zu klaren</td><td><span class="badge badge-v3">V3</span></td></tr>
+                        <tr><td><strong>US-15</strong></td><td>Als Kunde mochte ich kontextsensitive Hilfe direkt innerhalb der psychodat-Module</td><td><span class="badge badge-v3">V3</span></td></tr>
+                        <tr><td><strong>US-16</strong></td><td>Als Kunde mochte ich visuelle Schritt-fur-Schritt-Anleitungen und kurze Videos fur komplexe Workflows</td><td><span class="badge badge-v3">V3</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <ul class="bullets" style="margin-top: 20px;">
+                <li><div class="bullet-dot"></div><div><strong>Interne zu externer Plattform:</strong> V3 erweitert die interne Knowledge Base zu einer externen, kundenorientierten Plattform</div></li>
+                <li><div class="bullet-dot"></div><div><strong>Self-Service fur Kunden:</strong> Kunden konnen psychodat-Fragen selbststandig losen, ohne den Support zu kontaktieren</div></li>
+                <li><div class="bullet-dot"></div><div><strong>Kontextsensitive In-App-Hilfe:</strong> Hilfe direkt in der Anwendung reduziert Support-Anfragen an der Quelle</div></li>
+                <li><div class="bullet-dot"></div><div><strong>Visuelle Inhalte:</strong> Anleitungen und Videos adressieren komplexe Workflows, die textbasiert schwer vermittelbar sind</div></li>
+            </ul>
+        </div>
+
+        <!-- 10 TECH STACK -->
+        <div class="slide" data-section="Architektur">
+            <div class="slide-header">
+                <div class="slide-tag">Folie 10 &mdash; Architektur</div>
+                <h1 class="slide-h">Tech-Stack im Uberblick</h1>
+                <div class="slide-lead">Wir bauen eine AI-gestutzte interne Knowledge Base &ndash; kein Wiki, kein Chatbot, sondern einen Hybrid, der strukturierte Artikel mit semantischer Suche und AI-gestutzten Antworten kombiniert.</div>
+            </div>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="tech-label">Frontend</div>
+                    <div class="tech-name">Next.js + Tailwind</div>
+                    <div class="tech-desc">Schnelle, moderne UI &ndash; Fabian: &bdquo;modern, klar, professionell&ldquo;. Server-Side Rendering fur Geschwindigkeit.</div>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-label">Backend / API</div>
+                    <div class="tech-name">Next.js API Routes + Supabase</div>
+                    <div class="tech-desc">Postgres, Auth, Echtzeit und Speicher in einem Paket. Minimaler Infrastruktur-Overhead.</div>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-label">Datenbank</div>
+                    <div class="tech-name">Supabase Postgres + pgvector</div>
+                    <div class="tech-desc">Relationale Daten fur Artikel/Nutzer/Tags + Vektor-Embeddings fur semantische Suche in einer DB.</div>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-label">AI / Suche</div>
+                    <div class="tech-name">Modell-agnostisch + Embeddings</div>
+                    <div class="tech-desc">GPT, Claude, Gemini fur RAG-Antworten. Embeddings via Voyage oder OpenAI fur Vektorsuche.</div>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-label">Deployment</div>
+                    <div class="tech-name">Vercel + Supabase</div>
+                    <div class="tech-desc">Standard-Stack. Schnelle Deploys, Preview-Umgebungen. Supabase auf Frankfurter Servern.</div>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-label">Benachrichtigungen</div>
+                    <div class="tech-name">E-Mail (Resend) + In-App</div>
+                    <div class="tech-desc">Artikel-Update-Benachrichtigungen gemass US-8. E-Mail und In-App-Kanal.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 11 RAG PIPELINE -->
+        <div class="slide" data-section="Architektur">
+            <div class="slide-header">
+                <div class="slide-tag">Folie 11 &mdash; Architektur</div>
+                <h1 class="slide-h">So funktioniert die AI-Suche: RAG-Pipeline</h1>
+                <div class="slide-lead">Die Retrieval-Augmented Generation Pipeline kombiniert Vektor-Ahnlichkeitssuche mit traditioneller Stichwortsuche fur maximale Abdeckung und Prazision.</div>
+            </div>
+            <div class="pipeline">
+                <div class="pipe-step"><div class="pipe-line"></div><div class="pipe-num">1</div><div class="pipe-content"><div class="pipe-title">Anfrage einbetten <span>(Embed Query)</span></div><div class="pipe-desc">Nutzeranfrage in eine Vektordarstellung umwandeln</div></div></div>
+                <div class="pipe-step"><div class="pipe-line"></div><div class="pipe-num">2</div><div class="pipe-content"><div class="pipe-title">Vektorsuche <span>(Vector Search)</span></div><div class="pipe-desc">pgvector nach den Top-K ahnlichsten Artikelabschnitten durchsuchen</div></div></div>
+                <div class="pipe-step"><div class="pipe-line"></div><div class="pipe-num">3</div><div class="pipe-content"><div class="pipe-title">Stichwortsuche <span>(Keyword Search)</span></div><div class="pipe-desc">Volltextsuche uber Postgres tsvector ausfuhren</div></div></div>
+                <div class="pipe-step"><div class="pipe-line"></div><div class="pipe-num">4</div><div class="pipe-content"><div class="pipe-title">Hybride Zusammenfuhrung <span>(Hybrid Merge)</span></div><div class="pipe-desc">Vektor- und Stichwortergebnisse fur beste Abdeckung kombinieren</div></div></div>
+                <div class="pipe-step"><div class="pipe-line"></div><div class="pipe-num">5</div><div class="pipe-content"><div class="pipe-title">Kontextaufbereitung <span>(Context Assembly)</span></div><div class="pipe-desc">Gefundene Abschnitte zusammen mit der Anfrage an die Claude API ubergeben</div></div></div>
+                <div class="pipe-step"><div class="pipe-line"></div><div class="pipe-num">6</div><div class="pipe-content"><div class="pipe-title">Antwortgenerierung <span>(Answer Generation)</span></div><div class="pipe-desc">Claude generiert eine prazise Antwort mit Quellenverweisen</div></div></div>
+                <div class="pipe-step"><div class="pipe-num">7</div><div class="pipe-content"><div class="pipe-title">Anzeige <span>(Display)</span></div><div class="pipe-desc">Antwort anzeigen mit Links zu den vollstandigen Quellartikeln</div></div></div>
+            </div>
+        </div>
+
+        <!-- 12 ARCHITEKTUR-ENTSCHEIDUNGEN -->
+        <div class="slide" data-section="Architektur">
+            <div class="slide-header">
+                <div class="slide-tag">Folie 12 &mdash; Architektur</div>
+                <h1 class="slide-h">Architektur-Entscheidungen: Warum dieser Stack?</h1>
+                <div class="slide-lead">Jede Technologieentscheidung wurde bewusst getroffen, um Komplexitat und Kosten niedrig zu halten.</div>
+            </div>
+            <div class="decisions">
+                <div class="decision">
+                    <h4>Warum Supabase + pgvector statt Pinecone/Weaviate?</h4>
+                    <p>Ein Service weniger zu verwalten. pgvector ist ausreichend leistungsfahig fur die Ergosoft-Skalierung (Hunderte bis niedrige Tausende Artikel, nicht Millionen). Halt Kosten niedrig und den Stack einfach.</p>
+                </div>
+                <div class="decision">
+                    <h4>Warum RAG statt Fine-Tuning?</h4>
+                    <p>Inhalte andern sich haufig (quartalsweise Releases, TI-Updates, Prozessanderungen). RAG ermoglicht die Aktualisierung der Knowledge Base ohne erneutes Training. Artikel werden beim Speichern neu eingebettet (re-embedded).</p>
+                </div>
+                <div class="decision">
+                    <h4>Warum kein reines Wiki (Notion/Confluence)?</h4>
+                    <p>Fabian mochte explizit AI-gestutzte Suche und kontextuelle Antworten, nicht nur Dokumentenablage. Die Interview-Daten zeigen: Mitarbeitende haben bereits Dokumente &ndash; sie finden und vertrauen ihnen nur nicht. Die AI-Schicht ist der Differenzierungsfaktor.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 13 CONTENT-STRATEGIE -->
+        <div class="slide" data-section="Content &amp; Struktur">
+            <div class="slide-header">
+                <div class="slide-tag">Folie 13 &mdash; Content &amp; Struktur</div>
+                <h1 class="slide-h">Content-Strategie: Wie gelangen Inhalte ins System?</h1>
+                <div class="slide-lead">Fur das MVP gelangt Content auf vier Wegen in das System.</div>
+            </div>
+            <ul class="bullets">
+                <li><div class="bullet-dot"></div><div><strong>Manuelle Erstellung:</strong> Mitarbeitende schreiben Artikel in einem Rich-Text-Editor</div></li>
+                <li><div class="bullet-dot"></div><div><strong>Massenimport (Bulk Import):</strong> Einmaliges Migrationsskript, um bestehende Dokumente aus Loop und dem Z:-Laufwerk zu ubernehmen (docx/pdf werden geparst und in Artikel umgewandelt)</div></li>
+                <li><div class="bullet-dot"></div><div><strong>AI-gestutztes Drafting:</strong> Rohe Notizen oder einen Support-Fall einfugen &ndash; die AI erstellt einen strukturierten Artikelentwurf, der Autor pruft und veroffentlicht</div></li>
+                <li><div class="bullet-dot"></div><div><strong>Sprache zu Text (Voice to Text):</strong> Einsatz von Whisper ermoglicht nahtloseren Wissens-Upload und Dokumentationserstellung</div></li>
+            </ul>
+        </div>
+
+        <!-- 14 KATEGORIESTRUKTUR -->
+        <div class="slide" data-section="Content &amp; Struktur">
+            <div class="slide-header">
+                <div class="slide-tag">Folie 14 &mdash; Content &amp; Struktur</div>
+                <h1 class="slide-h">Vorgeschlagene Kategoriestruktur</h1>
+                <div class="slide-lead">Basierend auf den Stakeholder-Interviews wurden folgende naturliche Wissensdomanen identifiziert.</div>
+            </div>
+            <div class="cat-grid">
+                <div class="cat-card"><div class="cat-name">Kundenservice / Support</div><div class="cat-items">TI-Troubleshooting (ePA, eRezept, eAU, Konnektor, Gateway), psychodat Fehlerbehebung, Hardware &amp; Netzwerk, Haufige Kundenfragen</div></div>
+                <div class="cat-card"><div class="cat-name">Vertrieb</div><div class="cat-items">Produkte &amp; Preise, Abos &amp; Kundigungen, Sondervereinbarungen</div></div>
+                <div class="cat-card"><div class="cat-name">Buchhaltung &amp; Finanzen</div><div class="cat-items">Rechnungslauf, SEPA, embloom Abrechnung</div></div>
+                <div class="cat-card"><div class="cat-name">Ambulanzen (AMBO)</div><div class="cat-items">Ambulanz-spezifische Prozesse und Wissen</div></div>
+                <div class="cat-card"><div class="cat-name">Personal / HR</div><div class="cat-items">Wegweiser (Arbeitszeiten, Urlaub, etc.), Onboarding</div></div>
+                <div class="cat-card"><div class="cat-name">IT / Infrastruktur</div><div class="cat-items">Interne IT-Prozesse und technische Infrastruktur</div></div>
+                <div class="cat-card"><div class="cat-name">Prozesse &amp; Ablaufe</div><div class="cat-items">Abteilungsubergreifende Prozessdokumentation</div></div>
+                <div class="cat-card"><div class="cat-name">Changelog / Neuigkeiten</div><div class="cat-items">Produktanderungen, Updates, interne Mitteilungen</div></div>
+            </div>
+        </div>
+
+        <!-- 15 BUILD ORDER -->
+        <div class="slide" data-section="Umsetzung">
+            <div class="slide-header">
+                <div class="slide-tag">Folie 15 &mdash; Umsetzung</div>
+                <h1 class="slide-h">Build Order: Entwicklungsreihenfolge</h1>
+                <div class="slide-lead">Die Entwicklung ist so sequenziert, dass jedes Modul auf dem vorherigen aufbaut.</div>
+            </div>
+            <div class="build-section">
+                <div class="build-phase">
+                    <div class="phase-tag phase-mvp">MVP Build</div>
+                    <ul class="build-items">
+                        <li><strong>Modul 1: Wissensartikel</strong> &ndash; Zuerst bauen, alles hangt von Inhalten ab</li>
+                        <li><strong>Modul 2: AI-Suche</strong> &ndash; Einbinden, sobald Artikel existieren</li>
+                        <li><strong>Modul 3: FAQ</strong> &ndash; Spezieller Artikeltyp, schneller Erfolg (Quick Win)</li>
+                        <li><strong>Modul 4: Benachrichtigungen</strong> &ndash; Leichtgewichtig, hoher Impact</li>
+                        <li><strong>Modul 5: Analytik</strong> &ndash; Von Tag eins tracken, Dashboard spater</li>
+                    </ul>
+                </div>
+                <div class="build-phase">
+                    <div class="phase-tag phase-v2">V2 Build</div>
+                    <ul class="build-items">
+                        <li>Fehlerbehebungsablaufe und interaktive Checklisten</li>
+                        <li>Bus-Faktor-Dashboard und Onboarding-Pfade</li>
+                        <li>Massenimport aus Loop / Z:-Laufwerk</li>
+                    </ul>
+                </div>
+                <div class="build-phase">
+                    <div class="phase-tag phase-v3">V3 Build</div>
+                    <ul class="build-items">
+                        <li>Externe Kunden-Knowledge-Base und In-App-Hilfe fur psychodat</li>
+                        <li>Visuelle Anleitungen und Videos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 16 OFFENE FRAGEN -->
+        <div class="slide" data-section="Umsetzung">
+            <div class="slide-header">
+                <div class="slide-tag">Folie 16 &mdash; Umsetzung</div>
+                <h1 class="slide-h">Offene Fragen und nachste Schritte</h1>
+                <div class="slide-lead">Folgende Punkte mussen im Rahmen des Kickoff geklart werden.</div>
+            </div>
+            <div class="questions-list">
+                <div class="q-item"><div class="q-num">1</div><div class="q-body"><div class="q-title">Content-Typen (MVP)</div><div class="q-desc">Exakte Liste der Inhaltstypen und Formate (Inputs), die in die Knowledge Base aufgenommen werden</div></div></div>
+                <div class="q-item"><div class="q-num">2</div><div class="q-body"><div class="q-title">Dokument-Formate</div><div class="q-desc">Welche Dokumente mussen gespeichert werden? Input: Welches Dokument (PDF/Excel/MP4) &ndash; Anbindung an Transkriptions-API &ndash; damit verbundene Kosten</div></div></div>
+                <div class="q-item"><div class="q-num">3</div><div class="q-body"><div class="q-title">MVP-Umfang</div><div class="q-desc">Die finale Liste der im MVP enthaltenen Elemente muss festgelegt werden</div></div></div>
+                <div class="q-item"><div class="q-num">4</div><div class="q-body"><div class="q-title">Tech-Stack</div><div class="q-desc">Finale Abstimmung der technischen Architektur</div></div></div>
+                <div class="q-item"><div class="q-num">5</div><div class="q-body"><div class="q-title">Daten-Upload</div><div class="q-desc">Wie werden die Daten hochgeladen? Wer fuhrt es durch? Deadline?</div></div></div>
+                <div class="q-item"><div class="q-num">6</div><div class="q-body"><div class="q-title">Daten-Retrieval</div><div class="q-desc">Vektor-Datenbank fur AI-indexierten Zugriff &ndash; Umsetzung in Supabase auf Frankfurter Servern</div></div></div>
+            </div>
+        </div>
+
+        <!-- 17 PRIORISIERUNG -->
+        <div class="slide" data-section="Umsetzung">
+            <div class="slide-header">
+                <div class="slide-tag">Folie 17 &mdash; Umsetzung</div>
+                <h1 class="slide-h">Priorisierungslegende</h1>
+            </div>
+            <div class="legend-cards">
+                <div class="legend-card mvp">
+                    <div class="legend-label">MVP</div>
+                    <div class="legend-desc">Im initialen Release enthalten &ndash; adressiert die kritischsten Pain Points aus den Stakeholder-Interviews</div>
+                </div>
+                <div class="legend-card v2">
+                    <div class="legend-label">V2</div>
+                    <div class="legend-desc">Zweite Iteration (nach Go-Live) &ndash; Erweiterungen basierend auf Stakeholder-Input und strategischem Wert</div>
+                </div>
+                <div class="legend-card v3">
+                    <div class="legend-label">V3</div>
+                    <div class="legend-desc">Strategischer Langzeit-Plan &ndash; kundenorientierte Funktionalitat (Fabians Vision)</div>
+                </div>
+            </div>
+            <div class="closing" style="margin-top: 48px;">
+                <div class="closing-label">Ergosoft x Asuno</div>
+                <h2>AI-gestutzte Knowledge Base</h2>
+                <p>Kickoff Workshop &ndash; Februar 2026</p>
+            </div>
+        </div>
+
     </div>
-
-    <div class="sl-ft"><span>Vertraulich</span><span>Interaktive Demo</span></div>
-  </div>
 </div>
-
-<!-- 07 TECH STACK -->
-<div class="sl sl--d" data-id="tech" style="overflow-y:auto">
-  <div class="sl-pad" style="height:auto;min-height:100vh">
-    <p class="hk">Architektur &amp; Tech Stack</p>
-    <h2 class="ht">Technischer Ansatz</h2>
-    <div class="aln aln--c"></div>
-    <div style="padding:14px 18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:8px;margin-bottom:18px">
-      <p style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan);margin-bottom:6px">Grundgedanke</p>
-      <p style="font-size:11.5px;color:rgba(255,255,255,.5);line-height:1.55">Wir bauen eine <strong style="color:var(--wh)">KI-gestützte interne Knowledge Base</strong>, kein Wiki, kein Chatbot, sondern ein Hybrid aus <strong style="color:var(--wh)">strukturierten Artikeln</strong>, <strong style="color:var(--wh)">semantischer Suche</strong> und <strong style="color:var(--wh)">KI-generierten Antworten</strong>.</p>
-    </div>
-    <div style="padding:14px 18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:8px;margin-bottom:18px">
-      <p style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan);margin-bottom:6px">Was ist RAG?</p>
-      <p style="font-size:11.5px;color:rgba(255,255,255,.5);line-height:1.55"><strong style="color:var(--wh)">Retrieval-Augmented Generation</strong> ist eine Methode, bei der ein KI-System vor der Antwort <strong style="color:var(--wh)">relevante Informationen aus einer Wissensdatenbank abruft</strong> und in die Antwort integriert. Die Ergebnisse basieren dadurch auf <strong style="color:var(--wh)">geprüften, aktuellen Quellen</strong> und sind verlässlich.</p>
-    </div>
-    <p style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan);margin-bottom:8px">Tech Stack</p>
-    <div class="fg1">
-      <table class="tb tb--dk tb--compact">
-        <thead><tr><th>Ebene</th><th>Technologie</th><th>Begründung</th></tr></thead>
-        <tbody>
-          <tr><td>Frontend</td><td>Next.js + Tailwind</td><td>Schnelle, moderne Oberfläche. Server-Side Rendering für Performance.</td></tr>
-          <tr><td>Backend / API</td><td>Next.js API Routes + Supabase</td><td>Postgres, Auth, Echtzeit und Storage in einem Paket. Minimaler Infrastruktur-Aufwand.</td></tr>
-          <tr><td>Datenbank</td><td>Supabase Postgres + pgvector</td><td>Relationale Daten für Artikel/Nutzer/Tags + <strong>Vektordatenbank</strong> für semantische Suche. Durchsucht Inhalte nach ihrer <strong>inhaltlichen Bedeutung</strong> statt nach exakten Stichwörtern und findet so auch in großen Wissensbeständen schnell die relevantesten Informationen.</td></tr>
-          <tr><td>KI / Suche</td><td>Model Agnostic + Embeddings</td><td>GPT, Claude, Gemini für Antwortgenerierung (RAG). Embeddings über Voyage oder OpenAI.</td></tr>
-          <tr><td>Dateispeicher</td><td>Supabase Storage</td><td>Für hochgeladene PDFs, Bilder und Anhänge zu Artikeln.</td></tr>
-          <tr><td>Auth</td><td>Supabase Auth (SSO später)</td><td>E-Mail/Passwort im MVP, Microsoft SSO ab V2.</td></tr>
-          <tr><td>Deployment</td><td>Vercel + Supabase</td><td>Standard-Stack. Schnelle Deployments, Preview Environments.</td></tr>
-          <tr><td>Benachrichtigungen</td><td>E-Mail (Resend) + In-App</td><td>Benachrichtigungen bei Artikeländerungen (US-8).</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="sl-ft"><span>Vertraulich</span><span>Architektur &amp; Tech Stack</span></div>
-  </div>
-</div>
-
-<!-- 08 RAG PIPELINE -->
-<div class="sl sl--d" data-id="rag">
-  <div class="sl-pad">
-    <p class="hk">KI-Suche</p>
-    <h2 class="ht">Wie die KI-Suche funktioniert</h2>
-    <div class="aln aln--c"></div>
-    <div style="padding:14px 18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:8px;margin-bottom:18px">
-      <p style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan);margin-bottom:6px">Was ist eine Vektordatenbank?</p>
-      <p style="font-size:11.5px;color:rgba(255,255,255,.5);line-height:1.55">Eine Vektordatenbank durchsucht Inhalte nach ihrer <strong style="color:var(--wh)">semantischen Bedeutung</strong> (inhaltlicher Sinn und Kontext eines Textes) statt nach exakten Stichwörtern. So werden auch in großen Wissensbeständen schnell die <strong style="color:var(--wh)">relevantesten Informationen</strong> gefunden.</p>
-    </div>
-    <!-- 3-Phase Process -->
-    <div style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:0;align-items:stretch;flex:1;align-content:center">
-
-      <!-- Phase 1: Frage -->
-      <div style="padding:28px 24px;background:rgba(79,204,196,.06);border:1px solid rgba(79,204,196,.15);border-radius:10px">
-        <p style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan);margin-bottom:14px">1. Frage</p>
-        <h3 style="font-size:14px;color:var(--wh);margin-bottom:10px">Nutzer stellt eine Frage</h3>
-        <p style="font-size:11px;color:rgba(255,255,255,.45);line-height:1.6;margin-bottom:12px">z.B. <strong style="color:rgba(255,255,255,.7)">&bdquo;Wie setze ich den Konnektor zurück?&ldquo;</strong></p>
-        <div style="border-top:1px solid rgba(255,255,255,.06);padding-top:12px">
-          <p style="font-size:10px;color:rgba(255,255,255,.35);line-height:1.5">Die Frage wird in einen <strong style="color:rgba(255,255,255,.55)">Vektor</strong> umgewandelt und gleichzeitig als <strong style="color:rgba(255,255,255,.55)">Stichwortsuche</strong> verarbeitet.</p>
-        </div>
-      </div>
-
-      <!-- Arrow -->
-      <div style="display:flex;align-items:center;padding:0 12px">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="var(--cyan)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity=".4"/></svg>
-      </div>
-
-      <!-- Phase 2: Suche -->
-      <div style="padding:28px 24px;background:rgba(4,0,212,.08);border:1px solid rgba(45,41,255,.15);border-radius:10px">
-        <p style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue-l);margin-bottom:14px">2. Suche</p>
-        <h3 style="font-size:14px;color:var(--wh);margin-bottom:10px">Relevante Inhalte finden</h3>
-        <p style="font-size:11px;color:rgba(255,255,255,.45);line-height:1.6;margin-bottom:12px">Zwei Suchverfahren laufen <strong style="color:rgba(255,255,255,.7)">parallel</strong> und ergänzen sich:</p>
-        <div style="border-top:1px solid rgba(255,255,255,.06);padding-top:12px">
-          <p style="font-size:10px;color:rgba(255,255,255,.35);line-height:1.7"><strong style="color:rgba(255,255,255,.55)">Vektor-Suche</strong> findet inhaltlich ähnliche Passagen<br><strong style="color:rgba(255,255,255,.55)">Keyword-Suche</strong> findet exakte Begriffe und Fachbegriffe<br><strong style="color:rgba(255,255,255,.55)">Hybrid Merge</strong> kombiniert beide Ergebnisse</p>
-        </div>
-      </div>
-
-      <!-- Arrow -->
-      <div style="display:flex;align-items:center;padding:0 12px">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="var(--blue-l)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity=".4"/></svg>
-      </div>
-
-      <!-- Phase 3: Antwort -->
-      <div style="padding:28px 24px;background:rgba(108,99,255,.06);border:1px solid rgba(108,99,255,.15);border-radius:10px">
-        <p style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#6C63FF;margin-bottom:14px">3. Antwort</p>
-        <h3 style="font-size:14px;color:var(--wh);margin-bottom:10px">KI generiert die Antwort</h3>
-        <p style="font-size:11px;color:rgba(255,255,255,.45);line-height:1.6;margin-bottom:12px">Die gefundenen Passagen werden der KI als <strong style="color:rgba(255,255,255,.7)">Kontext</strong> übergeben.</p>
-        <div style="border-top:1px solid rgba(255,255,255,.06);padding-top:12px">
-          <p style="font-size:10px;color:rgba(255,255,255,.35);line-height:1.7"><strong style="color:rgba(255,255,255,.55)">Verständliche Antwort</strong> in natürlicher Sprache<br><strong style="color:rgba(255,255,255,.55)">Quellenangaben</strong> mit Links zu den Artikeln<br><strong style="color:rgba(255,255,255,.55)">Keine Halluzination</strong>, nur eure Daten</p>
-        </div>
-      </div>
-
-    </div>
-    <div class="sl-ft"><span>Vertraulich</span><span>RAG Pipeline</span></div>
-  </div>
-</div>
-
-
-<!-- 10 CONTENT STRATEGIE -->
-<div class="sl sl--l" data-id="content">
-  <div class="sl-pad">
-    <p class="hk">Content Strategie</p>
-    <h2 class="ht">Von den Quellen zur Struktur</h2>
-    <div class="aln aln--g"></div>
-
-    <div style="flex:1;display:flex;flex-direction:column;gap:0;align-items:center;position:relative">
-
-      <!-- INPUTS -->
-      <p style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);margin-bottom:10px;align-self:flex-start">Quellen / Inputs</p>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:100%;margin-bottom:0">
-        <div style="padding:14px 16px;background:var(--wh);border:1px solid var(--g100);border-radius:8px;border-top:3px solid var(--blue);text-align:center">
-          <h4 style="font-size:11px;font-weight:600;color:var(--g900);margin-bottom:4px">Manuelle Erstellung</h4>
-          <p style="font-size:9.5px;color:var(--g500);line-height:1.4">Rich-Text-Editor mit Tags, Kategorien, Versionshistorie</p>
-        </div>
-        <div style="padding:14px 16px;background:var(--wh);border:1px solid var(--g100);border-radius:8px;border-top:3px solid var(--blue);text-align:center">
-          <h4 style="font-size:11px;font-weight:600;color:var(--g900);margin-bottom:4px">Bulk Import</h4>
-          <p style="font-size:9.5px;color:var(--g500);line-height:1.4">Migration aus Loop + Z:-Laufwerk (DOCX/PDF)</p>
-        </div>
-        <div style="padding:14px 16px;background:var(--wh);border:1px solid var(--g100);border-radius:8px;border-top:3px solid var(--blue);text-align:center">
-          <h4 style="font-size:11px;font-weight:600;color:var(--g900);margin-bottom:4px">KI-Drafting</h4>
-          <p style="font-size:9.5px;color:var(--g500);line-height:1.4">Rohe Notizen einfügen, KI erstellt strukturierten Entwurf</p>
-        </div>
-        <div style="padding:14px 16px;background:var(--wh);border:1px solid var(--g100);border-radius:8px;border-top:3px solid var(--blue);text-align:center">
-          <h4 style="font-size:11px;font-weight:600;color:var(--g900);margin-bottom:4px">Voice to Text</h4>
-          <p style="font-size:9.5px;color:var(--g500);line-height:1.4">Whisper-Transkription für nahtlose Dokumentation</p>
-        </div>
-      </div>
-
-      <!-- TRICHTER SVG -->
-      <svg viewBox="0 0 600 60" style="width:80%;height:50px;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg">
-        <polygon points="0,0 600,0 460,60 140,60" fill="var(--g100)" opacity=".6"/>
-        <polygon points="0,0 600,0 460,60 140,60" fill="none" stroke="var(--g200)" stroke-width="1"/>
-        <text x="300" y="35" font-family="Inter,sans-serif" font-size="10" font-weight="700" fill="var(--blue)" text-anchor="middle" letter-spacing="2">KNOWLEDGE BASE</text>
-      </svg>
-
-      <!-- KATEGORIEN -->
-      <p style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#2ba89e;margin-bottom:10px;align-self:flex-start">Kategorien / Output</p>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%">
-        <div style="padding:12px 14px;background:linear-gradient(135deg,rgba(79,204,196,.06),rgba(4,0,212,.04));border:1px solid rgba(79,204,196,.12);border-radius:6px">
-          <h4 style="font-size:10.5px;font-weight:600;color:var(--g900);margin-bottom:3px">Kundenservice</h4>
-          <p style="font-size:8.5px;color:var(--g500);line-height:1.4">TI-Troubleshooting, psychodat, Hardware, Häufige Fragen</p>
-        </div>
-        <div style="padding:12px 14px;background:linear-gradient(135deg,rgba(79,204,196,.06),rgba(4,0,212,.04));border:1px solid rgba(79,204,196,.12);border-radius:6px">
-          <h4 style="font-size:10.5px;font-weight:600;color:var(--g900);margin-bottom:3px">Vertrieb</h4>
-          <p style="font-size:8.5px;color:var(--g500);line-height:1.4">Produkte, Preise, Abos, Kündigungen</p>
-        </div>
-        <div style="padding:12px 14px;background:linear-gradient(135deg,rgba(79,204,196,.06),rgba(4,0,212,.04));border:1px solid rgba(79,204,196,.12);border-radius:6px">
-          <h4 style="font-size:10.5px;font-weight:600;color:var(--g900);margin-bottom:3px">Buchhaltung</h4>
-          <p style="font-size:8.5px;color:var(--g500);line-height:1.4">Rechnungslauf, SEPA, embloom</p>
-        </div>
-        <div style="padding:12px 14px;background:linear-gradient(135deg,rgba(79,204,196,.06),rgba(4,0,212,.04));border:1px solid rgba(79,204,196,.12);border-radius:6px">
-          <h4 style="font-size:10.5px;font-weight:600;color:var(--g900);margin-bottom:3px">Personal / HR</h4>
-          <p style="font-size:8.5px;color:var(--g500);line-height:1.4">Wegweiser, Arbeitszeiten, Onboarding</p>
-        </div>
-        <div style="padding:12px 14px;background:linear-gradient(135deg,rgba(79,204,196,.06),rgba(4,0,212,.04));border:1px solid rgba(79,204,196,.12);border-radius:6px">
-          <h4 style="font-size:10.5px;font-weight:600;color:var(--g900)">IT / Infrastruktur</h4>
-        </div>
-        <div style="padding:12px 14px;background:linear-gradient(135deg,rgba(79,204,196,.06),rgba(4,0,212,.04));border:1px solid rgba(79,204,196,.12);border-radius:6px">
-          <h4 style="font-size:10.5px;font-weight:600;color:var(--g900)">Prozesse / Abläufe</h4>
-        </div>
-        <div style="padding:12px 14px;background:linear-gradient(135deg,rgba(79,204,196,.06),rgba(4,0,212,.04));border:1px solid rgba(79,204,196,.12);border-radius:6px">
-          <h4 style="font-size:10.5px;font-weight:600;color:var(--g900)">Changelog</h4>
-        </div>
-      </div>
-
-    </div>
-    <div class="sl-ft"><span>Vertraulich</span><span>Content Strategie</span></div>
-  </div>
-</div>
-
-<!-- 11 ROADMAP -->
-<div class="sl sl--l" data-id="roadmap">
-  <div class="sl-pad">
-    <p class="hk">Roadmap</p>
-    <h2 class="ht">Geplante Erweiterungen nach MVP</h2>
-    <p class="hl">Priorisiert auf Basis von Mitarbeiter-Input und strategischem Mehrwert.</p>
-    <div class="aln aln--g"></div>
-
-    <div style="flex:1;display:flex;flex-direction:column;gap:20px">
-
-      <!-- Horizontaler Zeitstrahl -->
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;position:relative">
-        <!-- Linie -->
-        <div style="position:absolute;top:14px;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--cyan) 0%,var(--blue) 50%,var(--mag) 100%);border-radius:2px"></div>
-        <!-- MVP -->
-        <div style="text-align:center;position:relative;padding-top:28px">
-          <div style="position:absolute;top:6px;left:50%;transform:translateX(-50%);width:18px;height:18px;background:var(--wh);border:3px solid var(--cyan);border-radius:50%"></div>
-          <span class="bd bd--m" style="font-size:10px;padding:4px 14px">MVP</span>
-        </div>
-        <!-- V2 -->
-        <div style="text-align:center;position:relative;padding-top:28px">
-          <div style="position:absolute;top:6px;left:50%;transform:translateX(-50%);width:18px;height:18px;background:var(--wh);border:3px solid var(--blue);border-radius:50%"></div>
-          <span class="bd bd--2" style="font-size:10px;padding:4px 14px">V2</span>
-        </div>
-        <!-- V3 -->
-        <div style="text-align:center;position:relative;padding-top:28px">
-          <div style="position:absolute;top:6px;left:50%;transform:translateX(-50%);width:18px;height:18px;background:var(--wh);border:3px solid var(--mag);border-radius:50%"></div>
-          <span class="bd bd--3" style="font-size:10px;padding:4px 14px">V3</span>
-        </div>
-      </div>
-
-      <!-- Inhalte 3 Spalten -->
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;flex:1;align-content:start">
-
-        <!-- MVP -->
-        <div style="display:flex;flex-direction:column;gap:8px">
-          <div style="padding:12px 14px;background:var(--g50);border:1px solid var(--g100);border-radius:6px;border-top:2px solid var(--cyan)">
-            <p style="font-size:10.5px;color:var(--g700);line-height:1.5"><strong>Knowledge Articles</strong>, AI Search, FAQ, Notifications, Analytics</p>
-          </div>
-          <div style="padding:12px 14px;background:var(--g50);border:1px solid var(--g100);border-radius:6px">
-            <p style="font-size:10.5px;color:var(--g700);line-height:1.5">User Stories <strong>US-1 bis US-7</strong></p>
-          </div>
-        </div>
-
-        <!-- V2 -->
-        <div style="display:flex;flex-direction:column;gap:8px">
-          <div style="padding:10px 14px;background:var(--wh);border:1px solid var(--g100);border-radius:6px;border-top:2px solid var(--blue)">
-            <p style="font-size:8px;font-weight:700;color:var(--blue);letter-spacing:.5px;margin-bottom:2px">US-10</p>
-            <p style="font-size:10.5px;color:var(--g700);line-height:1.4"><strong>Geführte Troubleshooting-Flows</strong> für TI-Probleme</p>
-          </div>
-          <div style="padding:10px 14px;background:var(--wh);border:1px solid var(--g100);border-radius:6px">
-            <p style="font-size:8px;font-weight:700;color:var(--blue);letter-spacing:.5px;margin-bottom:2px">US-11</p>
-            <p style="font-size:10.5px;color:var(--g700);line-height:1.4"><strong>Strukturierte Onboarding-Pfade</strong> pro Rolle</p>
-          </div>
-          <div style="padding:10px 14px;background:var(--wh);border:1px solid var(--g100);border-radius:6px">
-            <p style="font-size:8px;font-weight:700;color:var(--blue);letter-spacing:.5px;margin-bottom:2px">US-12</p>
-            <p style="font-size:10.5px;color:var(--g700);line-height:1.4"><strong>Wissensrisiko-Dashboard:</strong> Zeigt, welche Themenbereiche nur von einer einzelnen Person abgedeckt werden</p>
-          </div>
-          <div style="padding:10px 14px;background:var(--wh);border:1px solid var(--g100);border-radius:6px">
-            <p style="font-size:8px;font-weight:700;color:var(--blue);letter-spacing:.5px;margin-bottom:2px">US-13</p>
-            <p style="font-size:10.5px;color:var(--g700);line-height:1.4"><strong>Interaktive Checklisten</strong> für wiederkehrende Prozesse</p>
-          </div>
-        </div>
-
-        <!-- V3 -->
-        <div style="display:flex;flex-direction:column;gap:8px">
-          <div style="padding:10px 14px;background:var(--wh);border:1px solid var(--g100);border-radius:6px;border-top:2px solid var(--mag)">
-            <p style="font-size:8px;font-weight:700;color:var(--mag);letter-spacing:.5px;margin-bottom:2px">US-14</p>
-            <p style="font-size:10.5px;color:var(--g700);line-height:1.4"><strong>Externes Kundenportal</strong> / Digitales Handbuch</p>
-          </div>
-          <div style="padding:10px 14px;background:var(--wh);border:1px solid var(--g100);border-radius:6px">
-            <p style="font-size:8px;font-weight:700;color:var(--mag);letter-spacing:.5px;margin-bottom:2px">US-15</p>
-            <p style="font-size:10.5px;color:var(--g700);line-height:1.4"><strong>Kontextsensitive Hilfe</strong> in psychodat-Modulen</p>
-          </div>
-          <div style="padding:10px 14px;background:var(--wh);border:1px solid var(--g100);border-radius:6px">
-            <p style="font-size:8px;font-weight:700;color:var(--mag);letter-spacing:.5px;margin-bottom:2px">US-16</p>
-            <p style="font-size:10.5px;color:var(--g700);line-height:1.4"><strong>Visuelle Guides</strong> und kurze Videos</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <div class="sl-ft"><span>Vertraulich</span><span>Roadmap</span></div>
-  </div>
-</div>
-
-<!-- 13 OFFENE FRAGEN -->
-<div class="sl sl--g" data-id="questions">
-  <div class="sl-pad">
-    <p class="hk">Klärungsbedarf</p>
-    <h2 class="ht">Offene Fragen</h2>
-    <p class="hl">Folgende Punkte müssen vor Projektstart gemeinsam geklärt werden.</p>
-    <div class="aln aln--b"></div>
-    <ul class="ql fg1">
-      <li><strong>Welche Datenformate sollen verarbeitet werden?</strong><br>z.B. PDF, PNG, Excel, MP4, DOCX. Welche Formate sind für das MVP relevant, welche kommen später?</li>
-      <li><strong>Wo werden die Daten hochgeladen?</strong><br>Über welchen Weg kommen die Inhalte ins System? Manuell, per Bulk Import, aus bestehenden Quellen (Loop, Z:-Laufwerk)?</li>
-      <li><strong>Wer ist verantwortlich für den initialen Upload?</strong><br>Welche Abteilungen/Personen liefern die ersten Inhalte zu? Gibt es pro Bereich einen Ansprechpartner?</li>
-      <li><strong>Bis wann müssen die Inhalte bereitstehen?</strong><br>Deadline für den initialen Content, damit das MVP mit echten Daten getestet werden kann.</li>
-    </ul>
-    <div class="sl-ft"><span>Vertraulich</span><span>13 / Offene Fragen</span></div>
-  </div>
-</div>
-
-<!-- 14 NACHSTE SCHRITTE -->
-<div class="sl sl--a" data-id="next">
-  <div class="sl-pad">
-    <p class="hk">Nächste Schritte</p>
-    <h2 class="ht">Nächste Schritte</h2>
-    <div class="aln" style="background:rgba(255,255,255,.3)"></div>
-    <div class="ns fg1" style="align-content:center">
-      <div class="nc"><h3>1. Offene Fragen klären</h3><p>Datenformate, Verantwortlichkeiten und Deadlines gemeinsam festlegen.</p></div>
-      <div class="nc"><h3>2. Architektur und Ausarbeitung</h3><p>Technische Grundlage aufbauen, Systemarchitektur finalisieren und mit der Entwicklung starten.</p></div>
-      <div class="nc"><h3>3. MVP zum Testen bereitstellen</h3><p>Zeitnah eine erste Version liefern, Feedback einholen, iterieren und verbessern.</p></div>
-    </div>
-    <p style="text-align:center;font-size:15px;font-weight:600;color:rgba(255,255,255,.7);margin-top:24px;letter-spacing:.3px">Wir freuen uns auf die Zusammenarbeit!</p>
-    <div class="sl-ft" style="color:rgba(255,255,255,.3)"><span>Ergosoft x Asuno &mdash; Knowledge Base Kick-off</span><span>Februar 2026 / Vertraulich</span></div>
-  </div>
-</div>
-
-</main>
 
 <script>
-const lk=document.querySelectorAll('.sb-n a'),pg=document.querySelectorAll('.sl,.sl-title');
-const allSlides=['title','agenda','problem','problems','vision','stories','mockup','tech','rag','content','roadmap','questions','next'];
-const slideToNav={title:'title',agenda:'agenda',problem:'problem',problems:'problem',vision:'vision',stories:'stories',mockup:'stories',tech:'tech',rag:'tech',content:'content',roadmap:'content',questions:'questions',next:'questions'};
-let cur=0;
-function go(id){
-  pg.forEach(p=>p.classList.remove('on'));lk.forEach(l=>l.classList.remove('on'));
-  const t=document.querySelector(`[data-id="${id}"]`),navId=slideToNav[id],l=document.querySelector(`[data-p="${navId}"]`);
-  if(t)t.classList.add('on');if(l)l.classList.add('on');
-  cur=allSlides.indexOf(id);
-}
-lk.forEach(l=>l.addEventListener('click',e=>{e.preventDefault();go(l.dataset.p)}));
-document.addEventListener('keydown',e=>{
-  if(e.key==='ArrowRight'||e.key==='ArrowDown'){e.preventDefault();if(cur<allSlides.length-1)go(allSlides[cur+1])}
-  if(e.key==='ArrowLeft'||e.key==='ArrowUp'){e.preventDefault();if(cur>0)go(allSlides[cur-1])}
-});
+    const slides = document.querySelectorAll('.slide');
+    const navItems = document.querySelectorAll('.nav-item');
+    const currentNum = document.getElementById('currentNum');
+    const sectionLabel = document.getElementById('sectionLabel');
+    const contentArea = document.getElementById('contentArea');
+    let current = 0;
 
-// Demo logic
-let demoStep=0, demoTimer=null;
-const demoSteps=[
-  {show:['demo-s1'],us:['demo-us1'],desc:'<strong>US-1: Volltextsuche</strong> &mdash; Der Nutzer gibt eine Frage in natürlicher Sprache ein. Die Suche versteht den Inhalt, nicht nur Stichwörter.'},
-  {show:['demo-s2'],us:['demo-us2'],desc:'<strong>US-2: KI-gestützte Antworten</strong> &mdash; Die KI verarbeitet die Frage und generiert eine strukturierte Antwort basierend auf der Wissensdatenbank.',extra:function(){setTimeout(function(){document.getElementById('demo-dots').style.display='none';document.getElementById('demo-answer').style.display='block'},1000)}},
-  {show:['demo-s3'],us:['demo-us5','demo-us4'],desc:'<strong>US-5 &amp; US-4</strong> &mdash; Quellen werden mit Aktualisierungsdatum angezeigt. Nutzer können veraltete Inhalte direkt melden.'},
-  {show:['demo-s4'],us:['demo-us6'],desc:'<strong>US-6: Häufige Fragen</strong> &mdash; Verwandte und häufig gestellte Fragen werden als Vorschläge eingeblendet.',extra:function(){document.getElementById('demo-nav-faq').style.color='rgba(255,255,255,.6)'}},
-  {show:['demo-s5'],us:['demo-us7'],desc:'<strong>US-7: Kategorien</strong> &mdash; Inhalte sind nach Abteilungen und Themen kategorisiert und filterbar.',extra:function(){document.getElementById('demo-nav-cat').style.color='rgba(255,255,255,.6)'}},
-  {us:['demo-us3'],desc:'<strong>US-3: Artikel erstellen</strong> &mdash; Mitarbeiter können direkt neues Wissen in die Datenbank eintragen.',extra:function(){document.getElementById('demo-s6').style.opacity='1'}}
-];
-function demoNext(){
-  if(demoStep>=demoSteps.length)return;
-  var s=demoSteps[demoStep];
-  if(s.show)s.show.forEach(function(id){var el=document.getElementById(id);if(el){el.style.display='flex';setTimeout(function(){el.classList.add('on')},30)}});
-  if(s.us)s.us.forEach(function(id){var el=document.getElementById(id);if(el)el.classList.add('on')});
-  var dot=document.getElementById('demo-dot-'+(demoStep+1));if(dot)dot.classList.add('on');
-  if(s.desc)document.getElementById('demo-desc').innerHTML=s.desc;
-  if(s.extra)s.extra();
-  demoStep++;
-  var chat=document.getElementById('demo-chat');if(chat)chat.scrollTop=chat.scrollHeight;
-}
-function demoPlay(){
-  demoReset();
-  var i=0;
-  demoTimer=setInterval(function(){if(i>=demoSteps.length){clearInterval(demoTimer);demoTimer=null;return}demoNext();i++},2200);
-}
-function demoReset(){
-  if(demoTimer){clearInterval(demoTimer);demoTimer=null}
-  demoStep=0;
-  ['demo-s1','demo-s2','demo-s3','demo-s4','demo-s5'].forEach(function(id){var el=document.getElementById(id);if(el){el.style.display='none';el.classList.remove('on')}});
-  document.getElementById('demo-s6').style.opacity='0';
-  document.querySelectorAll('.demo-us').forEach(function(el){el.classList.remove('on')});
-  document.querySelectorAll('.demo-ind').forEach(function(el){el.classList.remove('on')});
-  document.getElementById('demo-dots').style.display='flex';
-  document.getElementById('demo-answer').style.display='none';
-  document.getElementById('demo-nav-faq').style.color='rgba(255,255,255,.25)';
-  document.getElementById('demo-nav-cat').style.color='rgba(255,255,255,.25)';
-  document.getElementById('demo-desc').innerHTML='Klicke <strong style="color:var(--g700)">Abspielen</strong> für die automatische Demo oder <strong style="color:var(--g700)">Weiter</strong> zum Durchklicken.';
-}
+    function goToSlide(index) {
+        if (index < 0 || index >= slides.length) return;
+        slides[current].classList.remove('active');
+        navItems[current].classList.remove('active');
+        current = index;
+        slides[current].classList.add('active');
+        navItems[current].classList.add('active');
+        currentNum.textContent = current + 1;
+        sectionLabel.textContent = slides[current].dataset.section || '';
+        contentArea.scrollTop = 0;
+        navItems[current].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+
+    function nextSlide() { goToSlide(current + 1); }
+    function prevSlide() { goToSlide(current - 1); }
+
+    navItems.forEach((item, i) => {
+        item.addEventListener('click', () => goToSlide(i));
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); nextSlide(); }
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prevSlide(); }
+    });
 </script>
 </body>
 </html>
